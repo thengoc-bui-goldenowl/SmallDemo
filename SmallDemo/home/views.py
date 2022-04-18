@@ -40,30 +40,19 @@ class CreateDev(View):
                 project_manager= ProjectManager(dev=new_dev)
                 project_manager.save()
                 project_manager.project.add(Project.objects.get(id=project))
-            response = JsonResponse({'statusCode':'200','message':"Successfully"})
-            
+            response = JsonResponse({'statusCode':'200','message':"Successfully"})   
         except:
             response =JsonResponse({'statusCode':'500','message':"ERROR"},)
-        return response
-        '''
-        form=DevForm(request.POST)
-    
-        if form.is_valid():
-            firstName = form.cleaned_data['firstName']
-            lastName = form.cleaned_data['lastName']
-            active = form.cleaned_data['active']
-            new_dev= Dev(firstName=firstName,lastName=lastName,active=active)
-            new_dev.save()
-            return HttpResponse("Hello")'''
+
 
 class CreateProject(View):
 
     def get(self, request):
         add_project_form=ProjectForm()
         return render(request, 'popup.html',{'f':add_project_form, 'index':'create/project', 'btn_class':'creatProjectSubmit','form_id':'createProjectForm'})
+    
     def post(self, request):
         form= ProjectForm(request.POST)
-        
         if form.is_valid:
             try:
                 request=request.POST

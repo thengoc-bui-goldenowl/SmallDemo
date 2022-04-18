@@ -37,15 +37,13 @@ $(".createDev").click(function() {
 });
 
 
-
+// Show Form
 function createFormButton() {
     $("#popupForm").show();
     $(".cancel").click(function() {
         $("#popupForm").hide()
     })
 }
-
-
 
 
 //Submit form
@@ -97,7 +95,6 @@ function createDevSubmit() {
 
 
 }
-
 
 
 //Submit Form Project
@@ -153,7 +150,6 @@ function createProjectSubmit() {
 
 
 }
-
 
 
 // Valid name function
@@ -242,13 +238,7 @@ function validFormProject() {
                 "dev": {
                     required: "Select a project",
                 },
-                submitHandler: function(form) {
-
-                    //form.submit();
-                }
-
             }
         });
     })
-
 }

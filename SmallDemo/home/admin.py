@@ -14,9 +14,6 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields=['id']
 
 
-
-
-
 class ProjectManagerAdmin(admin.ModelAdmin):
     list_display=['dev']
     list_filter =['dev']
