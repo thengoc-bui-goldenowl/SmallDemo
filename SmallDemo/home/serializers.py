@@ -1,6 +1,6 @@
 from attr import field
 from rest_framework import serializers
-from home.models import Dev, Project, ProjectManager
+from home.models import Dev, Project
 
 class DevSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,8 +12,5 @@ class ProjectSerializer(serializers.ModelSerializer):
         model= Project
         field=('id','name','des','start_date','end_date')
 
-class ProjectManagerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= ProjectManager
-        field=('id','dev','project')
+
     
