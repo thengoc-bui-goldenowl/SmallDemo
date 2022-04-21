@@ -27,5 +27,8 @@ class Project(models.Model):
 #Project Manager
 class ProjectManager(models.Model):
     dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
-    project = models.ManyToManyField(Project)  
+    project = models.ManyToManyField(Project, related_name="project_manager")  
+    def project_name(self):
+        return ', '.join([a.name for a in self.project.all()])
+    project_name.short_description = "Project Name"
     

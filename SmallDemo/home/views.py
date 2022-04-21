@@ -5,7 +5,9 @@ from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 from home.models import Dev, Project, ProjectManager
 from home.serializers import DevSerializer, ProjectSerializer, ProjectManagerSerializer
-from .forms import DevForm, ProjectForm, ProjectManagerForm
+from home.form.dev import DevForm
+from home.form.project import ProjectForm
+from home.form.projectmanager import ProjectManagerForm
 from django.views import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.detail import DetailView
@@ -33,7 +35,7 @@ class CreateDev(View):
             first_name=request.POST.get('first_name')
             last_name=request.POST.get('last_name')
             language=request.POST.get('language')
-            new_dev= Dev(first_name=first_name,last_name=last_name,active=active,language=language)
+            new_dev= Dev(first_name=first_name,last_name=last_name,language=language,active=active)
             new_dev.save()
             if active:
                 project=request.POST.get('project')
@@ -43,6 +45,7 @@ class CreateDev(View):
             response = JsonResponse({'statusCode':'200','message':"Successfully"})   
         except:
             response =JsonResponse({'statusCode':'500','message':"ERROR"},)
+        return response
 
 
 class CreateProject(View):

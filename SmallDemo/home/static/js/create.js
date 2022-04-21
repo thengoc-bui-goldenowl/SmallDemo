@@ -58,6 +58,7 @@ function createDevSubmit() {
         var active = $('#id_active').prop('checked');
         var project = $('#id_project').val();
         var language = $('#id_language').val();
+        console.log(active)
         $.ajax({
             url: "form/create/dev/",
             type: "POST",
@@ -192,6 +193,9 @@ function validFormProject() {
 
             return this.optional(element) || Date.parse(startdatevalue) <= Date.parse(value);
         });
+        $.validator.addMethod('validCost', function(value) {
+            return Number(value) > 0;
+        }, 'Enter a positive number.');
         $("#createProjectForm").validate({
 
             errorClass: 'form-dev-error',
@@ -211,6 +215,10 @@ function validFormProject() {
                 "end_date": {
                     date: true,
                     isdateafter: true
+                },
+                "cost": {
+                    validCost: true,
+
                 },
                 "dev": {
                     required: true,
@@ -233,6 +241,10 @@ function validFormProject() {
                 "end_date": {
                     date: "Enter a valid Date",
                     isdateafter: "Enter a valid End Date"
+
+                },
+                "cost": {
+                    validCost: "Enter a positive value",
 
                 },
                 "dev": {

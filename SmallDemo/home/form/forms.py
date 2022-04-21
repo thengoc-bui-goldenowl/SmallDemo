@@ -1,7 +1,5 @@
 from django import forms
-from .models import Dev, Project, ProjectManager
-import re
-from django.core.exceptions import ObjectDoesNotExist
+from home.models import Dev, Project, ProjectManager
 
 
 #Dev Form
@@ -26,7 +24,7 @@ class DevForm(forms.ModelForm):
 
     
     #Project Form
-class ProjectForm(forms.ModelForm, forms.Form):
+class ProjectForm(forms.ModelForm):
     dev = forms.ModelChoiceField(queryset=Dev.objects.none())
     def __init__(self, *args, **kwargs):
         super(ProjectForm,self).__init__(*args,**kwargs)
