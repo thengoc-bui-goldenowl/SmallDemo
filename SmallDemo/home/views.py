@@ -5,9 +5,7 @@ from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 from home.models import Dev, Project, ProjectManager
 from home.serializers import DevSerializer, ProjectSerializer, ProjectManagerSerializer
-from home.form.dev import DevForm
-from home.form.project import ProjectForm
-from home.form.projectmanager import ProjectManagerForm
+from home.forms import ProjectForm, DevForm, ProjectManager
 from django.views import View
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.detail import DetailView

@@ -1,7 +1,5 @@
 from django.contrib import admin
-from home.form.dev import DevForm
-from home.form.project import ProjectForm
-from home.form.projectmanager import ProjectManagerForm
+from home.forms import dev, DevForm, ProjectManager
 from django import forms
 from home.models import ProjectManager, Project, Dev
 from django.db.models import OuterRef, Subquery
