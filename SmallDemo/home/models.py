@@ -19,7 +19,10 @@ class Project(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     cost = models.DecimalField(max_digits=20, decimal_places=2)
-    dev = models.ManyToManyField(Dev, related_name="project")
+    dev = models.ManyToManyField(Dev,
+                                 related_name='project',
+
+                                 )
 
     def dev_name(self):
         return ', '.join([a[0] + ' '+a[1] for a in self.dev.values_list('first_name', 'last_name')])
@@ -30,7 +33,7 @@ class Project(models.Model):
 
 
 class ProjectDev(models.Model):
-    dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    dev = models.ForeignKey(Dev, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True)
     status = models.BooleanField()

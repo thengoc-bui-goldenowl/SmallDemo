@@ -1,5 +1,20 @@
+
 {% extends 'base.html' %}
 
-{% block clock%}
-{% include 'clock.html' %} 
+{% load static %}
+
+{% block link %}
+
+{% include 'project/linkproject.html' %} 
+
+{% endblock %}
+{% block headtable %}
+{% include 'project/headtableproject.html' %} 
+{% endblock %}
+{% block table %}
+{% include 'project/projecttable2.html' %} 
+{% endblock%}
+{% block script %}
+<script src=" {% static 'js/create.js' %}"></script>
+<script src=" {% static 'js/func.js' %}"></script>
 {% endblock%}

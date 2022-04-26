@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+    {% include 'dev/linkdev.html' %} 
+{% endblock %}
+
+{% block headtable %}
+    {% include 'dev/headtabledev.html' %} 
+{% endblock %}
+
+{% block table %}
+    {% include 'dev/devtable.html' %} 
+{% endblock%}
+
+{% block script %}
+    <script src=" {% static 'js/create.js' %}"></script>
+    <script src=" {% static 'js/func.js' %}"></script>
+    <script src=" {% static 'js/table.js' %}"></script>
+    <script src=" {% static 'js/app.js' %}"></script>
+    <script src=" {% static 'js/tableDev.js' %}"></script>
+{% endblock%}
