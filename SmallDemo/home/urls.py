@@ -18,7 +18,7 @@ from . import views
 from django.urls import path
 
 urlpatterns = [
-    path('', views.Home.as_view(),name='home'),
-    path('form/create/project/', views.CreateProject.as_view()),
-    path('form/create/dev/',views.CreateDev.as_view(),name="popup"),
+    path('', views.Home.as_view(), name='home'),
+    path('form/create/project/', views.CreateProject.as_view(), name='create_project'),
+    path('form/create/dev/',views.CreateDev.as_view(), name='create_dev'),
 ]

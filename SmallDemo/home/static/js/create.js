@@ -37,15 +37,13 @@ $(".createDev").click(function() {
 });
 
 
-
+// Show Form
 function createFormButton() {
     $("#popupForm").show();
     $(".cancel").click(function() {
         $("#popupForm").hide()
     })
 }
-
-
 
 
 //Submit form
@@ -60,6 +58,7 @@ function createDevSubmit() {
         var active = $('#id_active').prop('checked');
         var project = $('#id_project').val();
         var language = $('#id_language').val();
+        console.log(active)
         $.ajax({
             url: "form/create/dev/",
             type: "POST",
@@ -97,7 +96,6 @@ function createDevSubmit() {
 
 
 }
-
 
 
 //Submit Form Project
@@ -155,7 +153,6 @@ function createProjectSubmit() {
 }
 
 
-
 // Valid name function
 function validFormDev() {
     $(document).ready(function() {
@@ -196,6 +193,9 @@ function validFormProject() {
 
             return this.optional(element) || Date.parse(startdatevalue) <= Date.parse(value);
         });
+        $.validator.addMethod('validCost', function(value) {
+            return Number(value) > 0;
+        }, 'Enter a positive number.');
         $("#createProjectForm").validate({
 
             errorClass: 'form-dev-error',
@@ -215,6 +215,10 @@ function validFormProject() {
                 "end_date": {
                     date: true,
                     isdateafter: true
+                },
+                "cost": {
+                    validCost: true,
+
                 },
                 "dev": {
                     required: true,
@@ -239,16 +243,14 @@ function validFormProject() {
                     isdateafter: "Enter a valid End Date"
 
                 },
+                "cost": {
+                    validCost: "Enter a positive value",
+
+                },
                 "dev": {
                     required: "Select a project",
                 },
-                submitHandler: function(form) {
-
-                    //form.submit();
-                }
-
             }
         });
     })
-
 }

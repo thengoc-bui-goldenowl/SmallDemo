@@ -1,8 +1,8 @@
 from django import forms
-from .models import Dev, Project, ProjectManager
-import re
-from django.core.exceptions import ObjectDoesNotExist
+from home.models import Dev, Project, ProjectManager
 
+
+#Dev Form
 class DevForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.none())
    
@@ -23,7 +23,8 @@ class DevForm(forms.ModelForm):
         
 
     
-class ProjectForm(forms.ModelForm, forms.Form):
+    #Project Form
+class ProjectForm(forms.ModelForm):
     dev = forms.ModelChoiceField(queryset=Dev.objects.none())
     def __init__(self, *args, **kwargs):
         super(ProjectForm,self).__init__(*args,**kwargs)
@@ -40,6 +41,8 @@ class ProjectForm(forms.ModelForm, forms.Form):
 
         }
         
+
+       #Project Manager Form 
 class ProjectManagerForm(forms.ModelForm):
     class Meta:
         model= ProjectManager
