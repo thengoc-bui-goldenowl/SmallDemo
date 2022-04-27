@@ -3,27 +3,39 @@ from pkgutil import get_data
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.decorators.http import require_POST
 from http import HTTPStatus
+from django.views.generic.edit import DeletionMixin
 from django.views.generic.edit import FormView
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView, RedirectView
 from django.views import View
-from matplotlib.pyplot import title
+from django.views.generic.edit import DeleteView
+from django.views.generic.detail import BaseDetailView
+from requests import delete
+from django.http import QueryDict
 from home.forms import ProjectForm, DevForm, UpdateProjectForm, UpdateDevForm, DetailDevForm, DetailProjectForm
-from home.serializers import DevSerializer, ProjectSerializer
+#from home.serializers import DevSerializer, ProjectSerializer
 from home.models import Dev, Project, ProjectDev
 from django.http import JsonResponse
-from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from unittest import result
 from datetime import datetime
 from django.core import serializers
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_protect
+from ..serializers import DevSerializer, ProjectSerializer
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
-
-
+class Test(viewsets.ModelViewSet):
+    queryset= Dev.objects.all()
+    serializer_class= DevSerializer
+   
 class ContactListView(ListView):
     paginate_by = 2
     model = Project
@@ -155,8 +167,8 @@ class CreateProject(View):
 
 
 class UpdateProject(View):
-    def get(self, request):
-        project_id = request.GET.get('project_id')
+    def get(self, request, project_id):
+        #project_id = request.GET.get('project_id')
         project = Project.objects.get(id=project_id)
         des = project.des
         name = project.name
@@ -171,13 +183,11 @@ class UpdateProject(View):
                                                       })
         return render(request, 'project/updateproject.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'devs': dev, 'title_form': "Project Information"})
 
-    def post(self, request):
-        form = UpdateProjectForm(request.POST)
+    def patch(self, request, project_id):
+        request=QueryDict(request.body)
+        form = UpdateProjectForm(request)
         if form.is_valid:
             try:
-                request = request.POST
-                print(request)
-                project_id = des = request.get('project_id')
                 des = request.get('des')
                 name = request.get('name')
                 start_date = request.get('start_date')
@@ -221,11 +231,7 @@ class UpdateProject(View):
                     {'statusCode': '500', 'message': "ERROR"},)
             return response
 
-
-class RemoveProject(View):
-    def post(self, request):
-
-        project_id = request.POST.get('project_id')
+    def delete(self, request, project_id):
         try:
             project = Project.objects.filter(id=project_id)
             project.delete()
@@ -238,28 +244,10 @@ class RemoveProject(View):
             })
         return response
 
-
-class RemoveDev(View):
-    def post(self, request):
-
-        dev_id = request.POST.get('dev_id')
-        try:
-            dev = Dev.objects.filter(id=dev_id)
-            dev.delete()
-            response = JsonResponse(
-                {'statusCode': '200', 'messages': "Successfully"}
-            )
-        except:
-            response = JsonResponse({
-                'statusCode': '500'
-            })
-        return response
-
-
 class UpdateDev(View):
 
-    def get(self, request):
-        dev_id = request.GET.get('dev_id')
+    def get(self, request,dev_id):
+        #dev_id = request.GET.get('dev_id')
         dev = Dev.objects.get(id=dev_id)
         first_name = dev.first_name
         last_name = dev.last_name
@@ -274,14 +262,15 @@ class UpdateDev(View):
                                               })
         return render(request, 'dev/updatedev.html', {'f': add_dev_form, 'index': 'create/dev', 'btn_class': 'creatDevSubmit', 'form_id': 'createDevForm', 'projects': project, 'title_form': "Dev Information"})
 
-    def post(self, request):
+    def patch(self, request, dev_id):
+        request=QueryDict(request.body)
         try:
-            dev_id = request.POST.get('dev_id')
-            active = request.POST.get('active') == 'true'
-            first_name = request.POST.get('first_name')
-            last_name = request.POST.get('last_name')
-            language = request.POST.get('language')
-            projects = request.POST.get('projects')
+            #dev_id = request.POST.get('dev_id')
+            active = request.get('active') == 'true'
+            first_name = request.get('first_name')
+            last_name = request.get('last_name')
+            language = request.get('language')
+            projects = request.get('projects')
             dev = Dev.objects.get(id=dev_id)
             dev.first_name = first_name
             dev.last_name = last_name
@@ -317,7 +306,21 @@ class UpdateDev(View):
             response = JsonResponse({'statusCode': '500', 'message': "ERROR"},)
         return response
 
+    def delete(self, request, dev_id):
+        
+        try:
+            dev = Dev.objects.filter(id=dev_id)
+            dev.delete()
+            response = JsonResponse(
+                {'statusCode': '200', 'messages': "Successfully"}
+            )
+        except:
+            response = JsonResponse({
+                'statusCode': '500'
+            })
+        return response
 
+   
 class DetailDev(View):
 
     def get(self, request):

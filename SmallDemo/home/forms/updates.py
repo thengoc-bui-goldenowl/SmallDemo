@@ -13,7 +13,6 @@ class UpdateProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UpdateProjectForm, self).__init__(*args, **kwargs)
 
-
     class Meta:
         model = Project
         fields = ('name', 'des', 'start_date', 'end_date', 'cost', 'dev')
@@ -37,6 +36,7 @@ class UpdateDevForm(forms.ModelForm):
             'id': "autocomplete-project",
             'name': "autocomplete-project"
         }))
+
     class Meta:
         model = Dev
         fields = ('first_name', 'last_name', 'language', 'active', 'project')
@@ -45,27 +45,4 @@ class UpdateDevForm(forms.ModelForm):
             "last_name": "Last Name",
             "active": "State",
             "project": "project"
-        }
-
-class DetailDevForm(forms.ModelForm):
-    class Meta:
-        model = Dev
-        fields = ('first_name', 'last_name', 'language', 'active')
-        labels = {
-            "first_name": "First Name",
-            "last_name": "Last Name",
-            "active": "State",
-        }
-
-        
-class DetailProjectForm(forms.ModelForm):
-    class Meta:
-        model= Project
-        fields = ('name', 'des', 'start_date', 'end_date', 'cost')
-        labels = {
-            'name': "Name",
-            'des': "Description",
-            'start_date': "Start Date",
-            'end_date': "End Date",
-            'cost': "Cost"
         }

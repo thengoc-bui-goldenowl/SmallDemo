@@ -19,12 +19,7 @@ $('#search-project').autocomplete({
         project_id = ui.item.value.split(' - ')[0];
         text = ui.item.value.split(' - ')[1];
         $.ajax({
-            url: "/form/update/project/",
-            data: {
-                project_id: project_id,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-
-            },
+            url: `/project/${project_id}/`,
             success: function(result) {
                 $("#createForm").html(result);
                 //autocomplete Dev Filed in Project Form
@@ -40,7 +35,7 @@ $('#search-project').autocomplete({
                     dateFormat: 'yy-mm-dd'
                 });
                 //Submit
-                createProjectSubmit("/form/update/project/", project_id, 'Updated');
+                createProjectSubmit(`/project/${project_id}/`, project_id, 'Updated', method = "PATCH");
             }
         });
 

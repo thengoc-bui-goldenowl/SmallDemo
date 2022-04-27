@@ -1,0 +1,9 @@
+Django
+psycopg2-binary
+psycopg2
+celery
+redis
+djangorestframework
+django-cors-headers
+requests
+python-decouple

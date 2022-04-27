@@ -10,19 +10,14 @@ $('#tabledev tr td:nth-child(3) a, #tabledev tr td button:nth-child(1)').click(f
     }
     var dev_id = rowValue[1];
     $.ajax({
-        url: "/form/update/dev/",
-        data: {
-            dev_id: dev_id,
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-
-        },
+        url: `/dev/${dev_id}/`,
         success: function(result) {
             $("#createForm").html(result);
             autocompleteUpdateDev()
             projectDetail()
             createFormButton();
             validFormDev();
-            createDevSubmit("/form/update/dev/", dev_id, 'Updated');
+            createDevSubmit(`/dev/${dev_id}/`, dev_id, 'Updated', method = "PATCH");
         }
     });
 });
@@ -81,24 +76,21 @@ $('#search-dev').autocomplete({
         dev_id = ui.item.value.split(' - ')[0];
         text = ui.item.value.split(' - ')[1];
         $.ajax({
-            url: "/form/update/dev/",
-            data: {
-                dev_id: dev_id,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-
-            },
+            url: `/dev/${dev_id}/`,
             success: function(result) {
                 $("#createForm").html(result);
+
                 //autocomplete Project Field
                 autocompleteUpdateDev()
-                    //Load project detail
+
+                //Load project detail
                 projectDetail()
                     //Show Form
                 createFormButton();
                 //Valid
                 validFormProject();
                 //Submit
-                createDevSubmit("/form/update/dev/", dev_id, 'Updated');
+                createDevSubmit(`/dev/${dev_id}/`, dev_id, 'Updated', method = "PATCH");
             }
         });
 
@@ -114,13 +106,8 @@ $('#tabledev tr td button:nth-child(2)').click(function(e) {
     var dev_id = row.find(`td:eq(${1})`).text()
     $('#remove-btn').click(function() {
         $.ajax({
-            url: '/form/remove/dev/',
-            type: "POST",
-            data: {
-                dev_id: dev_id,
-                csrfmiddlewaretoken: getCookie('csrftoken'),
-            },
-
+            url: `/dev/${dev_id}/`,
+            type: "DELETE",
             cache: false,
             success: function(dataResult) {
                 if (dataResult.statusCode == 200) {
@@ -157,7 +144,6 @@ function autocompleteUpdateDev() {
                 url: `/form/projectautocomplete/`,
                 data: {
                     term: $(`#autocomplete-project`).val(),
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
                 },
                 dataType: "json",
                 type: "GET",
@@ -191,4 +177,9 @@ function autocompleteUpdateDev() {
             });
         }
     })
+    $(`#project-link span`).click(function(e) {
+        e.preventDefault();
+        $(this).prev().remove();
+        $(this).remove();
+    });
 }
