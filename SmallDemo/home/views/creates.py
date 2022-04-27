@@ -1,34 +1,22 @@
+
 from django.shortcuts import render, HttpResponse, redirect
-from django.views.decorators.http import require_POST
 from http import HTTPStatus
-from django.views.generic.edit import FormView
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.base import TemplateView, RedirectView
 from django.views import View
-from home.forms import ProjectForm, DevForm
-from home.serializers import DevSerializer, ProjectSerializer
+from django.http import QueryDict
+from home.forms import ProjectForm, DevForm, UpdateProjectForm, UpdateDevForm, DetailDevForm, DetailProjectForm
+#from home.serializers import DevSerializer, ProjectSerializer
 from home.models import Dev, Project, ProjectDev
 from django.http import JsonResponse
-from rest_framework.parsers import JSONParser
-from django.views.decorators.csrf import csrf_exempt
-from unittest import result
 from datetime import datetime
-
-# Create your views here.
-
-
-class Home(View):
-
-    def get(self, request):
-        return render(request, 'index.html')
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 class CreateDev(View):
 
     def get(self, request):
         add_dev_form = DevForm()
-        return render(request, 'popup.html', {'f': add_dev_form, 'index': 'create/dev', 'btn_class': 'creatDevSubmit', 'form_id': 'createDevForm'})
+        return render(request, 'popup.html', {'f': add_dev_form, 'index': 'create/dev', 'btn_class': 'creatDevSubmit', 'form_id': 'createDevForm', 'title_form': "New Dev"})
 
     def post(self, request):
         try:
@@ -43,6 +31,7 @@ class CreateDev(View):
                 project_id = request.POST.get('project')
                 project = Project.objects.get(id=project_id)
                 project.dev.add(new_dev)
+                project.save()
                 project_dev = ProjectDev(
                     dev=new_dev, project=project, status=True)
                 project_dev.save()
@@ -57,7 +46,7 @@ class CreateProject(View):
 
     def get(self, request):
         add_project_form = ProjectForm()
-        return render(request, 'popup.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm'})
+        return render(request, 'popup.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'title_form': "New Project"})
 
     def post(self, request):
         form = ProjectForm(request.POST)

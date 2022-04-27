@@ -150,6 +150,12 @@
     width: 100%;
 }
 
+.formdetail {
+    margin-top: 0%;
+    left: 40%;
+    position: absolute;
+}
+
 .formPopup {
     display: none;
     position: fixed;
@@ -166,16 +172,28 @@
     background-color: #fff;
 }
 
+.formContainer select {
+    margin-top: 10px;
+}
+
 .formContainer input[type=text],
+.formContainer textarea,
 .formContainer input[type=select],
 .formContainer input[type=number],
 .formContainer input[type=checkbox],
 .formContainer input[type=password] {
+    text-align: center;
     width: 100%;
-    padding: 5px;
-    margin: 5px 0 15px 0;
     border: none;
     background: #eee;
+}
+
+.formContainer div {
+    margin-top: 10px;
+}
+
+#id_des {
+    max-height: 80px;
 }
 
 .form-dev-error {
@@ -208,4 +226,10 @@
 .formContainer .btn:hover,
 .openButton:hover {
     opacity: 1;
+}
+
+.modal-title {
+    color: red;
+    margin-top: 20px;
+    font-size: 30px;
 }

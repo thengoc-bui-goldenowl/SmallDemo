@@ -203,25 +203,8 @@ function filter() {
 }
 $(function() {
     $(".datepicker").datepicker({
-        dateFormat: 'mm/dd/yy'
+        dateFormat: 'yy-mm-dd'
     });
-});
-$('#btnSearchDate').on('click', function() {
-    if ($('#startDate').val() != "" && $('#endDate').val() != "") {
-        var dataSearchDate = [];
-        var startDate = new Date($('#startDate').val());
-        var endDate = new Date($('#endDate').val());
-        dataSearchDate = project.filter(function(i) {
-            var startDateProject = new Date(i.start);
-            var endDateProject = new Date(i.end);
-            return startDateProject >= startDate && startDateProject <= endDate || endDateProject >= startDate && endDateProject <= endDate
-        });
-        console.log(dataSearchDate)
-        setDataFilter(table0, dataSearchDate)
-    } else {
-        alert("Start Date and End Date is not none!")
-    }
-
 });
 $('#btnClearSearchDate').on('click', function() {
     document.getElementById('startDate').value = '';
@@ -287,28 +270,14 @@ class Table {
     }
 
 }
-var table0 = new Table(project, 3, 1, "0", "Project List")
+/*var table0 = new Table(project, 3, 1, "0", "Project List")
 var pagination0 = table0.pagination();
 var table1 = new Table(dev, 3, 1, "1", "Developer List")
 var pagination1 = table1.pagination();
-$('#totalTable tr td').click(function() {
-    //console.log($(this).text());
-    //alert($(this).DataTable().row(this).data())
+*/
 
-    var $rowValue = [];
-    let $row = $(this).closest("tr");
-    let tdLength = $(this).closest("tr").children("td").length;
-    for (let i = 0; i < tdLength - 1; i++) {
-        $rowValue.push($row.find(`td:eq(${i})`).text());
-    }
-    console.log($(this).text());
 
-});
-$("#totalTable tr td:nth-child(2), td:nth-child(6)").hover(function() {
-    $(this).css("text-decoration", "underline");
-}, function() {
-    $(this).css("text-decoration", "none");
-})
+
 $(".switch input").click(function() {
     let index = $(this).closest("tr").index();
     let status = $(this).closest("tr").find(`td:eq(2)`);
@@ -316,84 +285,3 @@ $(".switch input").click(function() {
     let setStatus = 1 - parseInt(status.text())
     $(this).closest("tr").find(`td:eq(2)`).text(setStatus)
 })
-class Clock {
-    constructor(minu, sec, msec, state) {
-        this.minu = minu;
-        this.sec = sec;
-        this.msec = msec;
-        this.state = state;
-        this.count = count;
-
-    }
-    start() {
-        if (this.state != 0) {
-            this.state = 0;
-            this.count = setInterval(() => {
-                console.log("this", this.state)
-                this.msec++
-                    if (this.msec == 100) {
-                        this.msec = 0
-                        this.sec++;
-                        if (this.sec == 60) {
-                            this.sec = 0;
-                            this.minu++;
-                        }
-                    }
-                document.getElementById("time").innerHTML = this.minu + ":" + this.sec + ":" + this.msec;
-
-            }, 10)
-        }
-
-
-    }
-    stop() {
-        this.state = 1;
-        clearInterval(this.count);
-        console.log(this.msec, this.sec);
-        this.minu = 0;
-        this.sec = 0;
-        this.msec = 0;
-    }
-    reset() {
-        clearInterval(this.count)
-        this.state = 1;
-        this.start();
-        this.minu = 0;
-        this.sec = 0;
-        this.msec = 0;
-    }
-    resume() {
-        if (this.state == 0) {
-            this.state = 2;
-            clearInterval(this.count)
-        } else if (this.state == 2) {
-            this.start();
-        }
-    }
-
-}
-$(document).ready(function() {
-    //var clock = new Clock(1)
-    //clock.start();
-})
-
-var clock = new Clock(0, 0, 0, 1)
-document.querySelector("#stop").addEventListener('click', function() {
-    clock.stop();
-})
-document.querySelector("#resume").addEventListener('click', function() {
-    clock.resume();
-})
-document.querySelector("#start").addEventListener('click', function() {
-    clock.start();
-})
-document.querySelector("#reset").addEventListener('click', function() {
-    clock.reset();
-})
-
-
-
-/*
-document.getElementById('id_active').onchange = function() {
-    document.getElementById('id_project').disable = !this.checked;
-};*/

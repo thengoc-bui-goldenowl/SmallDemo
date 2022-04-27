@@ -52,10 +52,12 @@ body {
 }
 
 .head-table {
-    position: -webkit-sticky;
-    position: sticky;
     top: 0;
     margin-bottom: 30px;
+}
+
+#headerLink {
+    color: #1da4df;
 }
 
 .head-table .selectShow {
@@ -69,6 +71,10 @@ body {
 
 .head-table .search {
     margin-left: 20px;
+}
+
+.search-dev {
+    margin-top: 20px;
 }
 
 .sort {
@@ -158,4 +164,34 @@ input:checked+.slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.tag-link a {
+    margin-top: 10px;
+    background-color: #2196F3;
+    border-color: #898989;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.tag-link span {
+    color: red;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+.tag-link span:hover {
+    cursor: pointer;
+}
+
+.tag-link a::before {
+    content: "";
+    margin-bottom: 10px;
+}
+
+.tag-link a:nth-child(1):before {
+    content: "";
 }

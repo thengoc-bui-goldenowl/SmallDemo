@@ -1,16 +1,16 @@
-from attr import field
+from home.models import Dev, Project, ProjectDev
 from rest_framework import serializers
-from home.models import Dev, Project
+
 
 class DevSerializer(serializers.ModelSerializer):
     class Meta:
-        model= Dev
-        field=('dev','first_name','last_name','active')
-    
+        model = Dev
+        fields = '__all__'
+
+
 class ProjectSerializer(serializers.ModelSerializer):
+    dev = DevSerializer(read_only=True, many=True)
+
     class Meta:
-        model= Project
-        field=('id','name','des','start_date','end_date')
-
-
-    
+        model = Project
+        fields = ('id', 'name', 'des', 'start_date', 'end_date', 'cost' 'dev')

@@ -1,0 +1,36 @@
+<header class="head-table">
+    <div class="select col-3 selectShow">
+        <select id="selectShow" onchange="selectShow()" class="form-select select-custom">
+        <option value="0">Project</option>
+        <option value="1">Dev</option>
+      </select>
+    </div>
+    <h3 class="project-name" id="projectName"></h3>
+    <div class="sort d-flex flex-row">
+        <div class="title">SORT:</div>
+        <div class="select">
+            <select id="count" onchange="select_count()" class="form-select select-custom">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="7">7</option>
+          </select>
+        </div>
+        <div class="form-outline search">
+            <input type="text" class="form-control" id="search-project" placeholder="Search for names.." title="Type in a name">
+        </div>
+        <div class="form-outline search">
+            <input type="text" class="form-control datepicker" data-date-format="dd-mm-yyyy" id="startDate" placeholder="Start Date">
+        </div>
+        <div class="form-outline search">
+            <input type="text" class="form-control datepicker" data-date-format="dd-mm-yyyy" id="endDate" placeholder="End Date..">
+        </div>
+        <div class="form-outline search">
+            <button type="button" class="btn btn-primary" id="btnSearchDate" style="margin-left:20px">Search</button>
+        </div>
+        <div class="form-outline search">
+            <button type="button" class="btn btn-danger" id="btnClearSearchDate">Clear</button>
+        </div>
+
+    </div>
+
+</header>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+    {% include 'project/linkproject.html' %} 
+{% endblock %}
+
+{% block headtable %}
+    {% include 'project/headtableproject.html' %} 
+{% endblock %}
+
+{% block table %}
+    {% include 'project/projecttable.html' %} 
+{% endblock%}
+
+{% block script %}
+    <script src=" {% static 'js/create.js' %}"></script>
+    <script src=" {% static 'js/func.js' %}"></script>
+    <script src=" {% static 'js/table.js' %}"></script>
+{% endblock%}

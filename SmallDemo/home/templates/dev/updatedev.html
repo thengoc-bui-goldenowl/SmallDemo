@@ -1,0 +1,20 @@
+
+<div class="loginPopup">
+    <div class="formPopup" id="popupForm">
+        <form class="formContainer" id="{{form_id}}" >
+            {% csrf_token %}
+            <h2 style="color: blue">{{title_form}}</h2>
+
+            {{f}}
+            <div id="project-link" class="tag-link">
+                {% for project in projects %}
+                <a href="{{project.0}}" class="projectsId" value="{{project.0}}">{{project.1}}</a>
+                <span class="ti-close"></span>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn {{btn_class}}" id ="{{btn_class}}">Update</button>
+            <button type="button" class="btn cancel">Close</button>
+        </form>
+    </div>
+    
+</div>
