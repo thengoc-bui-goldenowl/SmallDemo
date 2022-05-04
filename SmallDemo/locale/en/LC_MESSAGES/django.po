@@ -1,0 +1,227 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-04 09:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: home/forms/details.py:10 home/forms/devs.py:14 home/forms/updates.py:45
+msgid "First Name"
+msgstr ""
+
+#: home/forms/details.py:11 home/forms/devs.py:15 home/forms/updates.py:46
+msgid "Last Name"
+msgstr ""
+
+#: home/forms/details.py:12 home/forms/devs.py:16 home/forms/updates.py:47
+msgid "State"
+msgstr ""
+
+#: home/forms/details.py:13 home/forms/updates.py:49
+#: home/templates/base.html:114
+msgid "Language"
+msgstr ""
+
+#: home/forms/details.py:22 home/forms/projects.py:17 home/forms/updates.py:20
+msgid "Name"
+msgstr ""
+
+#: home/forms/details.py:23 home/forms/projects.py:18 home/forms/updates.py:21
+msgid "Description"
+msgstr ""
+
+#: home/forms/details.py:24 home/forms/projects.py:19 home/forms/updates.py:22
+msgid "Start Date"
+msgstr ""
+
+#: home/forms/details.py:25 home/forms/projects.py:20 home/forms/updates.py:23
+msgid "End Date"
+msgstr ""
+
+#: home/forms/details.py:26 home/forms/updates.py:25
+msgid "Cost"
+msgstr ""
+
+#: home/forms/devs.py:17
+msgid "project"
+msgstr ""
+
+#: home/forms/devs.py:18
+msgid "language"
+msgstr ""
+
+#: home/forms/projects.py:21 home/forms/updates.py:24
+msgid "Dev"
+msgstr ""
+
+#: home/forms/updates.py:48
+msgid "Project"
+msgstr ""
+
+#: home/templates/base.html:25
+msgid "Are you sure ?"
+msgstr ""
+
+#: home/templates/base.html:29
+msgid "Do you really want to delete? This process cannot be undone."
+msgstr ""
+
+#: home/templates/base.html:32 home/templates/detail.html:14
+#: home/templates/dev/updatedev.html:16 home/templates/popup.html:10
+#: home/templates/project/updateproject.html:17
+msgid "Close"
+msgstr ""
+
+#: home/templates/base.html:33 home/templates/dev/devtable.html:32
+#: home/templates/project/projecttable.html:44
+msgid "Remove"
+msgstr ""
+
+#: home/templates/base.html:59
+msgid "Create"
+msgstr ""
+
+#: home/templates/base.html:64
+msgid "Create Project"
+msgstr ""
+
+#: home/templates/base.html:70
+msgid "Create Dev"
+msgstr ""
+
+#: home/templates/dev/devtable.html:6
+#: home/templates/project/projecttable.html:8
+msgid "No."
+msgstr ""
+
+#: home/templates/dev/devtable.html:7
+#: home/templates/project/projecttable.html:9
+msgid "ID"
+msgstr ""
+
+#: home/templates/dev/devtable.html:8
+#: home/templates/project/projecttable.html:10
+msgid "NAME"
+msgstr ""
+
+#: home/templates/dev/devtable.html:9
+msgid "LANGUAGE"
+msgstr ""
+
+#: home/templates/dev/devtable.html:10
+msgid "ACTIVE"
+msgstr ""
+
+#: home/templates/dev/devtable.html:11
+#: home/templates/project/projecttable.html:15
+msgid "ACTION"
+msgstr ""
+
+#: home/templates/dev/devtable.html:31 home/templates/dev/updatedev.html:15
+#: home/templates/project/projecttable.html:43
+#: home/templates/project/updateproject.html:16
+msgid "Update"
+msgstr ""
+
+#: home/templates/dev/devtable.html:44
+#: home/templates/project/projecttable.html:60
+msgid "Previous"
+msgstr ""
+
+#: home/templates/dev/devtable.html:57
+#: home/templates/project/projecttable.html:76
+msgid "Next"
+msgstr ""
+
+#: home/templates/dev/headtabledev.html:6
+#: home/templates/project/headtableproject.html:7
+msgid "Display"
+msgstr ""
+
+#: home/templates/dev/headtabledev.html:13
+#: home/templates/project/headtableproject.html:14
+msgid "Search for names.."
+msgstr ""
+
+#: home/templates/dev/linkdev.html:4 home/templates/dev/linkdev.html:10
+#: home/templates/project/linkproject.html:9
+msgid "DEV"
+msgstr ""
+
+#: home/templates/dev/linkdev.html:7 home/templates/project/linkproject.html:6
+msgid "HOME"
+msgstr ""
+
+#: home/templates/dev/linkdev.html:8 home/templates/project/linkproject.html:3
+#: home/templates/project/linkproject.html:7
+msgid "PROJECT"
+msgstr ""
+
+#: home/templates/index.html:7 home/views/pages.py:76
+msgid "Hello"
+msgstr "Hello"
+
+#: home/templates/popup.html:9
+msgid "Confirm"
+msgstr ""
+
+#: home/templates/project/headtableproject.html:17
+msgid "Start Date.."
+msgstr ""
+
+#: home/templates/project/headtableproject.html:20
+msgid "End Date.."
+msgstr ""
+
+#: home/templates/project/projecttable.html:11
+msgid "DES"
+msgstr ""
+
+#: home/templates/project/projecttable.html:12
+msgid "START"
+msgstr ""
+
+#: home/templates/project/projecttable.html:13
+msgid "END"
+msgstr ""
+
+#: home/templates/project/projecttable.html:14
+msgid "COST"
+msgstr ""
+
+#: home/views/creates.py:23
+msgid "New Dev"
+msgstr ""
+
+#: home/views/creates.py:54
+msgid "New Project"
+msgstr ""
+
+#: home/views/details.py:35
+msgid "Dev Information"
+msgstr ""
+
+#: home/views/details.py:58
+msgid "Project Information"
+msgstr ""
+
+#: home/views/pages.py:102
+msgid "List Project"
+msgstr ""
+
+#: home/views/pages.py:126
+msgid "List Dev"
+msgstr ""

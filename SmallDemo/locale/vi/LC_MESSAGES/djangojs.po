@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-04 08:56+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: home/static/js/create.js:211 home/static/js/create.js:215
+msgid "Please enter a valid name."
+msgstr "Nhập tên thật!!!"
+
+#: home/static/js/create.js:212 home/static/js/create.js:216
+#: home/static/js/create.js:219 home/static/js/create.js:271
+#: home/static/js/create.js:276 home/static/js/create.js:281
+#: home/static/js/create.js:286 home/static/js/create.js:292
+msgid "This field is required."
+msgstr "Trường bắt buộc"
+
+#: home/static/js/create.js:270 home/static/js/create.js:272
+msgid "Must be 3 to 20 characters"
+msgstr "Ít nhất 3 ký tự"
+
+#: home/static/js/create.js:275 home/static/js/create.js:277
+msgid "Must be 5 to 200 characters"
+msgstr "Ít nhất 5 ký tự"
+
+#: home/static/js/create.js:280 home/static/js/create.js:285
+msgid "Enter a valid Date"
+msgstr "Nhập đúng ngày"
+
+#: home/static/js/create.js:287
+msgid "Enter a valid End Date"
+msgstr "Nhập đúng ngày"
+
+#: home/static/js/create.js:291
+msgid "Enter a positive value"
+msgstr "Nhập giá trị dương"
+
+#: home/static/js/create.js:296
+msgid "Select a project"
+msgstr "Chọn 1 project"
+
+#: home/static/js/table.js:58
+msgid "Start Date and End Date is not none!"
+msgstr "Ngày bắt đầu và ngày kết thúc không được trống"
