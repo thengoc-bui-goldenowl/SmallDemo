@@ -1,10 +1,9 @@
 
 {% extends 'base.html' %}
-
+{% load func %}
 {% load static %}
-
+{% load i18n %}
 {% block link %}
-
 {% include 'project/linkproject.html' %} 
 
 {% endblock %}
@@ -17,4 +16,5 @@
 {% block script %}
 <script src=" {% static 'js/create.js' %}"></script>
 <script src=" {% static 'js/func.js' %}"></script>
+<script src=" {% static 'js/table.js' %}"></script>
 {% endblock%}

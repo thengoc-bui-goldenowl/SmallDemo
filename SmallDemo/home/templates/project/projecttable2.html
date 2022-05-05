@@ -1,4 +1,5 @@
 
+{% load func %}
 <div class="table-project table-responsive">
     <table class="table table-bordered table-hover text-center " id="tableproject">
         <thead>
@@ -30,7 +31,14 @@
                     <a value="{{dev.0}}" href="{{dev.0}}">{{dev.1}} {{dev.2}} </a>
                     {% endfor %}
                 </td>
-                <td>{{project.5}}</td>
+                <td>
+                    {% if currency %}
+                    {{ project.5|mul}} VND
+                    {% else %}
+                    {{project.5}} USD
+                    {% endif%}
+
+                </td>
                 <td>
                     <div class="btn-group-sm">
                         <button type="button" class="btn btn-primary btn-func" id="projectUpdate{{project.0}}">Update</button>

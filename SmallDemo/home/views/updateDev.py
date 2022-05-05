@@ -10,6 +10,13 @@ from django.http import JsonResponse
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.core.cache import cache
+from django.conf import settings
+from django.utils.translation import gettext as _
+
+
+def remove_cache():
+    cache.set("dev", "")
 
 
 class UpdateDev(View):
@@ -28,7 +35,7 @@ class UpdateDev(View):
                                               'active': active, 'language': language,
 
                                               })
-        return render(request, 'dev/updatedev.html', {'f': add_dev_form, 'index': 'create/dev', 'btn_class': 'creatDevSubmit', 'form_id': 'createDevForm', 'projects': project, 'title_form': "Dev Information"})
+        return render(request, 'dev/updatedev.html', {'f': add_dev_form, 'index': 'create/dev', 'btn_class': 'creatDevSubmit', 'form_id': 'createDevForm', 'projects': project, 'title_form': _("Dev Information")})
 
     def patch(self, request, dev_id):
         request = QueryDict(request.body)
@@ -70,6 +77,8 @@ class UpdateDev(View):
                 project_dev.save()
             response = JsonResponse(
                 {'statusCode': '200', 'message': "Successfully"})
+            remove_cache()
+
         except:
             response = JsonResponse({'statusCode': '500', 'message': "ERROR"},)
         return response
@@ -82,6 +91,7 @@ class UpdateDev(View):
             response = JsonResponse(
                 {'statusCode': '200', 'messages': "Successfully"}
             )
+            remove_cache()
         except:
             response = JsonResponse({
                 'statusCode': '500'

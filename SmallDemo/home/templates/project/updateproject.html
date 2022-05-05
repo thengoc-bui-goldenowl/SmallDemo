@@ -1,9 +1,10 @@
 
+{% load i18n %}
 <div class="loginPopup">
     <div class="formPopup" id="popupForm">
         <form class="formContainer" id="{{form_id}}" >
             {% csrf_token %}
-            <h2 style="color: blue">{{title_form}}</h2>
+            <h2 class="title-form">{{title_form}}</h2>
 
             {{f}}
             <div id="dev-link" class="tag-link">
@@ -12,8 +13,8 @@
                 <span class= "ti-close"></span>
                 {% endfor %}
             </div>
-            <button type="submit" class="btn {{btn_class}}" id ="{{btn_class}}">Update</button>
-            <button type="button" class="btn cancel">Close</button>
+            <button type="submit" class="btn {{btn_class}}" id ="{{btn_class}}">{% translate "Update"%}</button>
+            <button type="button" class="btn cancel">{% translate "Close"%}</button>
         </form>
     </div>
     

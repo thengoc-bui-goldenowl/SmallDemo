@@ -150,13 +150,8 @@
     width: 100%;
 }
 
+.formPopup,
 .formdetail {
-    margin-top: 0%;
-    left: 40%;
-    position: absolute;
-}
-
-.formPopup {
     display: none;
     position: fixed;
     left: 50%;
@@ -164,12 +159,24 @@
     transform: translate(-50%, 5%);
     border: 3px solid #999999;
     z-index: 9;
+    border-radius: 10%;
 }
 
 .formContainer {
     max-width: 300px;
+    height: 100%;
+    width: 100%;
     padding: 20px;
-    background-color: #fff;
+    background: #ecf0f3;
+    border-radius: 10%;
+}
+
+.formContainer .title-form {
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: #1DA1F2;
+    letter-spacing: 1px;
 }
 
 .formContainer select {
@@ -180,8 +187,9 @@
 .formContainer textarea,
 .formContainer input[type=select],
 .formContainer input[type=number],
-.formContainer input[type=checkbox],
 .formContainer input[type=password] {
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
     text-align: center;
     width: 100%;
     border: none;
@@ -208,15 +216,15 @@
 }
 
 .formContainer .btn {
-    margin-top: 10px;
-    padding: 12px 10px;
-    border: none;
-    background-color: #8ebf42;
-    color: #fff;
+    color: white;
+    margin-top: 20px;
+    background: #1DA1F2;
+    height: 40px;
+    border-radius: 20px;
     cursor: pointer;
-    width: 100%;
-    margin-bottom: 15px;
-    opacity: 0.8;
+    font-weight: 900;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+    transition: 0.5s;
 }
 
 .formContainer .cancel {

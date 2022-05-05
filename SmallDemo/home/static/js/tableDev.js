@@ -30,7 +30,7 @@ function projectDetail() {
         e.preventDefault();
         var project_id = $(this).attr('value');
         $.ajax({
-            url: "/form/detail/project/",
+            url: `/${langCode}/form/detail/project/`,
             type: "GET",
             data: {
                 project_id: project_id,
@@ -141,7 +141,7 @@ function autocompleteUpdateDev() {
     $(`#autocomplete-project`).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: `/form/projectautocomplete/`,
+                url: `/${langCode}/form/projectautocomplete/`,
                 data: {
                     term: $(`#autocomplete-project`).val(),
                 },

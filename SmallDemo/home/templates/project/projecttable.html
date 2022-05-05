@@ -1,16 +1,18 @@
 
+{% load func %}
+{% load i18n %}
 <div class="table-project table-responsive">
     <table class="table table-bordered table-hover text-center " id="tableproject">
         <thead>
             <tr>
-                <th>No.</th>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>DES</th>
-                <th>START</th>
-                <th>END</th>
-                <th>COST</th>
-                <th>ACTION</th>
+                <th>{% translate "No." %}</th>
+                <th>{% translate "ID" %}</th>
+                <th>{% translate "NAME" %}</th>
+                <th>{% translate "DES" %}</th>
+                <th>{% translate "START" %}</th>
+                <th>{% translate "END" %}</th>
+                <th>{% translate "COST" %}</th>
+                <th>{% translate "ACTION" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,11 +31,17 @@
                     <a value="{{dev.0}}" href="{{dev.0}}">{{dev.1}} {{dev.2}} </a>
                     {% endfor %}
                 </td>-->
-                <td>{{project.cost}}</td>
+                <td>
+                    {% if currency %}
+                    {{ project.cost|mul}} VND
+                    {% else %}
+                    {{project.cost}} USD
+                    {% endif%}
+                </td>
                 <td>
                     <div class="btn-group-sm">
-                        <button type="button" class="btn btn-primary btn-func" id="projectUpdate{{project.0}}">Update</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modelRemove">Remove</button>
+                        <button type="button" class="btn btn-primary btn-func" id="projectUpdate{{project.0}}"><span class='ti-pencil-alt'></button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modelRemove"><span class='ti-trash'></span></button>
 
                         
                     </div>
@@ -49,9 +57,10 @@
 
                 <li class="page-item0">
                     {% if data.has_previous %}
-                    <a class="page-link btn-pre" href="?page={{ data.previous_page_number }}">Previous</a>
+                    <a class="page-link btn-pre" href="?page={{ data.previous_page_number }}">{% translate "Previous"%}</a>
                     {% endif %}</li>
-                        <li class="page-item active"><a class="page-link" href="#">{{data.number}}</a></li>
+                        {% comment %} <li class="page-item active"><a class="page-link" href="#">{{data.number}}</a></li> {% endcomment %}
+                        <li class="page-item active"><a class="page-link" href="#">{{data.number}} of {{data.paginator.num_pages}}</a></li>
     
 
                 
@@ -65,7 +74,7 @@
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>-->
                 {% if data.has_next %}
-                <li class="page-item"><a class="page-link btn-next" href="?page={{ data.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link btn-next" href="?page={{ data.next_page_number }}">{% translate "Next"%}</a></li>
                     {% endif%}
            </ul>
         </div>

@@ -13,7 +13,7 @@ class DevAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['name', 'des', 'start_date', 'end_date', 'dev_name']
+    list_display = ['name', 'des', 'start_date', 'end_date', 'dev_name', 'cost']
     list_filter = ['name']
     search_fields = ['name']
 

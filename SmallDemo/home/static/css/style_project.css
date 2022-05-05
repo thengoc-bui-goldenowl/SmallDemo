@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+ul {
+    list-style-type: none;
+}
+
 a {
     text-decoration: none;
     color: #000;
@@ -54,6 +58,16 @@ body {
 .head-table {
     top: 0;
     margin-bottom: 30px;
+}
+
+.currency {
+    margin-left: 20px;
+}
+
+.currency span {
+    color: black;
+    border-radius: 10px;
+    background-color: yellow;
 }
 
 #headerLink {
@@ -194,4 +208,40 @@ input:checked+.slider:before {
 
 .tag-link a:nth-child(1):before {
     content: "";
+}
+
+.language {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+}
+
+.language ul {
+    text-align: center;
+}
+
+.language ul li {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 8px 15px;
+    border: 1px solid #CFE3DC;
+    right: 0px;
+    align-items: center;
+    justify-content: center;
+}
+
+.language ul li a {
+    background-color: #F1FFF7;
+    margin-left: 30px;
+    color: #44B78B;
+    font-weight: 700;
+}
+
+.language ul .other {
+    text-align: center;
+    display: none;
+}
+
+.language ul li:last-child:hover>.language ul .other {
+    align-self: center;
 }
