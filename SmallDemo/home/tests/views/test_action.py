@@ -111,9 +111,14 @@ class TestCreates(TransactionTestCase):
             cost=120
         )
         self.project1.dev.add(self.dev1)
-        data='active=True&first_name=Squid&last_name=Doe&language=C++&projects=,'+str(new_project.id)
+        data={'active':'True',
+        'first_name':'Squid',
+        'last_name':'Doe',
+        'language':'C++',
+        'projects':','+str(new_project.id)}
+        data=json.dumps(data)
         response = self.client.patch(reverse('dev_update', args=(
-            self.dev_id,)), data)
+            self.dev_id,)), data, format="json")
         self.assertEqual(Dev.objects.get(id=self.dev_id).first_name, 'Squid')
         self.assertEquals(response.status_code, 200)
 
@@ -143,9 +148,15 @@ class TestCreates(TransactionTestCase):
             active=True
         )
         self.project1.dev.add(self.dev1)
-        data = 'name=TestProjectName&des=Nothing&start_date=2000-02-02&end_date=2001-02-02&cost=1250&devs=,'+str(new_dev1.id)
+        data = {"name":"TestProjectName",
+        "des":"Nothing",
+        "start_date":"2000-02-02",
+        "end_date":"2001-02-02",
+        "cost":"1250",
+        "devs":","+str(new_dev1.id)}
+        data=json.dumps(data)
         response = self.client.patch(
-            reverse('project_update', args=(self.project_id,)), data)
+            reverse('project_update', args=(self.project_id,)), data, format="json")
         self.assertEqual(Project.objects.get(
             id=self.project_id).name, 'TestProjectName')
         self.assertEquals(response.status_code, 200)
@@ -158,9 +169,10 @@ class TestCreates(TransactionTestCase):
         self.assertEquals(response.status_code, 200)
 
     def test_search_date_project_get(self):
+        data={'start_date':'2022-04-03','end_date':'2022-05-06'}
         project = self.project_id
         response = self.client.get(
-            reverse('project_search_date', args=('2022-04-03', '2022-05-06',)))
+            reverse('project_search_date'),data, format="json")
         self.assertTemplateUsed(response, 'project/projectpage.html')
         self.assertEquals(
             response.context['data'][0]['name'], self.project1.name)
@@ -169,14 +181,14 @@ class TestCreates(TransactionTestCase):
     def test_search_name_project_get(self):
         project = self.project_id
         response = self.client.get(
-            reverse('project_search_name', args=('pr',)))
+            reverse('project_search_name'), {'qry':'pr'}, format="json")
         self.assertTemplateUsed(response, 'project/projectpage.html')
         self.assertEquals(response.context['data'][0].name, self.project1.name)
         self.assertEquals(response.status_code, 200)
 
     def test_search_name_dev_get(self):
         dev = self.dev_id
-        response = self.client.get(reverse('dev_search_name', args=('o',)))
+        response = self.client.get(reverse('dev_search_name'), {'qry':'o'}, format="json")
         self.assertTemplateUsed(response, 'dev/devpage.html')
         self.assertEquals(
             response.context['data'][0].first_name, self.dev1.first_name)

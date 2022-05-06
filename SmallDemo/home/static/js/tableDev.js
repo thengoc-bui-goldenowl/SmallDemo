@@ -57,11 +57,11 @@ function projectDetail() {
 }
 
 // Search Dev name
-$('#search-dev').keypress(function(e) {
-    if (e.which == 13) { //Enter key pressed
-        window.location.replace(`/search/dev/name/${$('#search-dev').val()}`)
-    }
-});
+// $('#search-dev').keypress(function(e) {
+//     if (e.which == 13) { //Enter key pressed
+//         window.location.replace(`/search/dev/name/${$('#search-dev').val()}`)
+//     }
+// });
 $('#search-dev').autocomplete({
     source: function(request, response) {
         $.ajax({

@@ -13,6 +13,7 @@ from django.db.models import Q
 from django.core.cache import cache
 from django.conf import settings
 from django.utils.translation import gettext as _
+import json
 
 
 def remove_cache():
@@ -36,19 +37,16 @@ class UpdateProject(View):
         return render(request, 'project/updateproject.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'devs': dev, 'title_form': _("Project Information")})
 
     def patch(self, request, project_id):
-        request = QueryDict(request.body)
-        form = UpdateProjectForm(request)
-        
-        if form.is_valid:
-            
+        data=json.loads(request.body)
+        form = UpdateProjectForm(data)
+        if form.is_valid:   
             try:
-                des = request.get('des')
-                name = request.get('name')
-                start_date = request.get('start_date')
-                end_date = request.get('end_date')
-                cost = request.get('cost')
-                devs = request.get('devs')
-
+                des = data['des']
+                name = data['name']
+                start_date = data['start_date']
+                end_date = data['end_date']
+                cost = data['cost']
+                devs = data['devs']
                 project = Project.objects.get(id=project_id)
                 try:
                     devs_raw = project.dev.values('id')

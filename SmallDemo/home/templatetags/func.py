@@ -24,3 +24,8 @@ def get_price():
         except:
             price = 22800.13454
     return price
+
+@register.filter
+def removelast(value):
+    value = str(value)
+    return value[:-1]

@@ -50,16 +50,15 @@ class TestUrls(TestCase):
         self.assertEqual(resolve(url).func.view_class, ProjectAutocomplete)
 
     def test_project_search_name_url_is_resolved(self):
-        url = reverse('project_search_name', args=('ab',))
+        url = reverse('project_search_name')
         self.assertEqual(resolve(url).func.view_class, SearchNameProject)
 
     def test_project_search_date_url_is_resolved(self):
-        url = reverse('project_search_date', args=(
-            '2022-04-04', '2022-05-05',))
+        url = reverse('project_search_date')
         self.assertEqual(resolve(url).func.view_class, SearchDateProject)
 
     def test_dev_search_name_url_is_resolved(self):
-        url = reverse('dev_search_name',args=('ab',))
+        url = reverse('dev_search_name')
         self.assertEqual(resolve(url).func.view_class, SearchNameDev)
 
     def test_language_url_is_resolved(self):

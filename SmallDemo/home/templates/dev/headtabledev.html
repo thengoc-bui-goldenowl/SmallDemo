@@ -9,8 +9,12 @@
             <option value="7">7</option>
           </select>
         </div>
+        {% get_current_language as LANGUAGE_CODE %}
         <div class="form-outline search">
-            <input type="text" class="form-control" id="search-dev" placeholder="{% translate "Search for names.."%}" title="Type in a name">
+            <form action="/{{LANGUAGE_CODE}}/dev/search/name/" method="get" style="display: flex">
+            <input type="text" class="form-control" id="search-dev" placeholder="{% translate "Search for names.."%}" title="Type in a name" name="qry" required style="height: 35px">
+            <button type="submit" class="btn btn-primary" style=" max-height: 35px;">
+                <span class="ti-search"></span></button>
         </div>
 
     </div>

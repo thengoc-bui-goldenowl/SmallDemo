@@ -13,6 +13,7 @@ from django.db.models import Q
 from django.core.cache import cache
 from django.conf import settings
 from django.utils.translation import gettext as _
+import json
 
 
 def remove_cache():
@@ -38,14 +39,15 @@ class UpdateDev(View):
         return render(request, 'dev/updatedev.html', {'f': add_dev_form, 'index': 'create/dev', 'btn_class': 'creatDevSubmit', 'form_id': 'createDevForm', 'projects': project, 'title_form': _("Dev Information")})
 
     def patch(self, request, dev_id):
-        request = QueryDict(request.body)
+        data=json.loads(request.body)
+        
         try:
             #dev_id = request.POST.get('dev_id')
-            active = request.get('active') == 'true'
-            first_name = request.get('first_name')
-            last_name = request.get('last_name')
-            language = request.get('language')
-            projects = request.get('projects')
+            active = data['active'] == 'true'
+            first_name = data['first_name']
+            last_name = data['last_name']
+            language = data['language']
+            projects = data['projects']
             dev = Dev.objects.get(id=dev_id)
             dev.first_name = first_name
             dev.last_name = last_name
