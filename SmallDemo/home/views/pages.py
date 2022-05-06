@@ -13,18 +13,11 @@ from django.http import JsonResponse
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
-from home.tasks import add
-from home.utils import Red
 from django.core.cache import cache
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language, activate
 
-
-class TestCelery(View):
-    def get(self, request):
-        res = add.delay(3, 4)
-        return HttpResponse("Done")
 
 # Cover display full dev in project table----TEST
 

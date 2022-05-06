@@ -336,12 +336,8 @@ function devDetail() {
         e.preventDefault();
         var dev_id = $(this).attr('value');
         $.ajax({
-            url: `/${langCode}/form/detail/dev/`,
+            url: `/${langCode}/detail/dev/${dev_id}/`,
             type: "GET",
-            data: {
-                dev_id: dev_id,
-
-            },
             success: function(result) {
                 $(".loginPopup").append(result);
                 autocompleteUpdate()

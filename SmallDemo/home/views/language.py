@@ -14,21 +14,11 @@ from django.db.models import Q
 class Language(View):
 
     def get(self, request, lang):
-        print('lang', lang)
-        if lang == "en" or lang == "vi":
-            if lang == request.COOKIES.get('lang'):
-                response = JsonResponse(
-                    {'statusCode': '200', 'messages': 'Not Change'})
-            else:
-                response = JsonResponse(
-                    {'statusCode': '200', 'messages': 'Changing'})
-                response.set_cookie('LANGUAGE_COOKIE_NAME', lang)
-        elif lang == "vnd" or lang == "usd":
-            if lang == request.COOKIES.get('currency'):
-                response = JsonResponse(
-                    {'statusCode': '200', 'messages': 'Not Change'})
-            else:
-                response = JsonResponse(
-                    {'statusCode': '200', 'messages': 'Changing'})
-                response.set_cookie('currency', lang)
+        if lang == request.COOKIES.get('currency'):
+            response = JsonResponse(
+                {'statusCode': '200', 'messages': 'Not Change'})
+        else:
+            response = JsonResponse(
+                {'statusCode': '200', 'messages': 'Changing'})
+            response.set_cookie('currency', lang)
         return response

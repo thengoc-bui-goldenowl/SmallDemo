@@ -53,28 +53,29 @@ class UpdateDev(View):
             dev.active = active
             dev.save()
             projects = projects.split(',')[1:]
-            projects = [int(i) for i in projects]
-            projects_raw = Project.objects.filter(dev__id=dev_id).values('id')
-            projects_raw = [i['id'] for i in projects_raw]
-            # add
-            project_add = list(set(projects)-set(projects_raw))
-            # remove
-            project_remove = list(set(projects_raw)-set(projects))
-            for p in project_add:
-                project = Project.objects.get(id=p)
-                project.dev.add(dev)
-                project.save()
-                project_dev = ProjectDev(
-                    dev=dev, project=project, status=True)
-                project_dev.save()
+            if projects:
+                projects = [int(i) for i in projects]
+                projects_raw = Project.objects.filter(dev__id=dev_id).values('id')
+                projects_raw = [i['id'] for i in projects_raw]
+                # add
+                project_add = list(set(projects)-set(projects_raw))
+                # remove
+                project_remove = list(set(projects_raw)-set(projects))
+                for p in project_add:
+                    project = Project.objects.get(id=p)
+                    project.dev.add(dev)
+                    project.save()
+                    project_dev = ProjectDev(
+                        dev=dev, project=project, status=True)
+                    project_dev.save()
 
-            for p in project_remove:
-                project = Project.objects.get(id=p)
-                project.dev.remove(dev)
-                project.save()
-                project_dev = ProjectDev(
-                    dev=dev, project=project, status=False)
-                project_dev.save()
+                for p in project_remove:
+                    project = Project.objects.get(id=p)
+                    project.dev.remove(dev)
+                    project.save()
+                    project_dev = ProjectDev(
+                        dev=dev, project=project, status=False)
+                    project_dev.save()
             response = JsonResponse(
                 {'statusCode': '200', 'message': "Successfully"})
             remove_cache()

@@ -1,5 +1,11 @@
 //Search project name
 
+$('#search-project').keypress(function(e) {
+    if (e.which == 13) { //Enter key pressed
+        window.location.replace(`/search/project/name/${$('#search-project').val()}/`)
+    }
+});
+
 $('#search-project').autocomplete({
     source: function(request, response) {
         $.ajax({

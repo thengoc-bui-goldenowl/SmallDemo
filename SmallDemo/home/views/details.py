@@ -13,11 +13,10 @@ from django.db.models import Q
 from django.utils.translation import gettext as _
 
 
-
 class DetailDev(View):
 
-    def get(self, request):
-        dev_id = request.GET.get('dev_id')
+    def get(self, request,dev_id):
+        #dev_id = request.GET.get('dev_id')
         dev = Dev.objects.get(id=dev_id)
         first_name = dev.first_name
         last_name = dev.last_name
@@ -37,8 +36,8 @@ class DetailDev(View):
 
 class DetailProject(View):
 
-    def get(self, request):
-        project_id = request.GET.get('project_id')
+    def get(self, request, project_id):
+        #project_id = request.GET.get('project_id')
         project = Project.objects.get(id=project_id)
         name = project.name
         des = project.des

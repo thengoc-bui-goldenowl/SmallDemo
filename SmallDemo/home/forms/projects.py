@@ -19,5 +19,6 @@ class ProjectForm(forms.ModelForm):
             'start_date': _("Start Date"),
             'end_date': _("End Date"),
             'dev': _("Dev"),
+            'cost': _("Cost")
 
         }

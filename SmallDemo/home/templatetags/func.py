@@ -1,32 +1,26 @@
+import requests
 from django import template
 from django.core.cache import cache
 from django.conf import settings
 from datetime import datetime, timedelta
 register = template.Library()
-import requests
+
+
 @register.filter
 def mul(value):
-    '''
-    Divides the value; argument is the divisor.
-    Returns empty string on any error.
-    '''
-    value = int( value )
-    return round(value * get_price(),2)
-  
+    value = int(value)
+    return round(value * get_price(), 2)
+
+
 def get_price():
-    price=cache.get("price")
+    price = cache.get("price")
     if not price:
         try:
-            a=requests.get('https://api.currencyapi.com/v3/latest?apikey=q9PDoUP4qywGKHM6sb97uN3Iu4CuaIL4r6nKcIdX')
-            price= a.json()['data']['VND']['value']
-            cache.set("price", price )
+            a = requests.get(
+                'https://api.currencyapi.com/v3/latest?apikey=q9PDoUP4qywGKHM6sb97uN3Iu4CuaIL4r6nKcIdX')
+            price = a.json()['data']['VND']['value']
+            cache.set("price", price)
             cache.pexpire_at("price", datetime.now() + timedelta(minutes=5))
         except:
-            price= 22800.13454
+            price = 22800.13454
     return price
-
-
-@register.filter
-def compare(value,arg):
-
-    return value!=arg

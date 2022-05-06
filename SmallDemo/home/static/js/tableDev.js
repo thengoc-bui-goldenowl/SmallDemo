@@ -30,7 +30,7 @@ function projectDetail() {
         e.preventDefault();
         var project_id = $(this).attr('value');
         $.ajax({
-            url: `/${langCode}/form/detail/project/`,
+            url: `/${langCode}/detail/project/${project_id}/`,
             type: "GET",
             data: {
                 project_id: project_id,
@@ -57,6 +57,11 @@ function projectDetail() {
 }
 
 // Search Dev name
+$('#search-dev').keypress(function(e) {
+    if (e.which == 13) { //Enter key pressed
+        window.location.replace(`/search/dev/name/${$('#search-dev').val()}`)
+    }
+});
 $('#search-dev').autocomplete({
     source: function(request, response) {
         $.ajax({
