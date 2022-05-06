@@ -1,5 +1,7 @@
 from django import forms
 from home.models import Dev, Project
+from django.utils.translation import gettext_lazy as _
+
 
 
 class DevForm(forms.ModelForm):
@@ -9,10 +11,11 @@ class DevForm(forms.ModelForm):
         model = Dev
         fields = ('first_name', 'last_name', 'language', 'active', 'project')
         labels = {
-            "first_name": "First Name",
-            "last_name": "Last Name",
-            "active": "State",
-            "project": "project"
+            "first_name": _("First Name"),
+            "last_name": _("Last Name"),
+            "active": _("State"),
+            "project": _("project"),
+            'language': _('language')
         }
 
     def __init__(self, *args, **kwargs):

@@ -1,11 +1,12 @@
+{% load i18n %}
 <div class="col">
-    <header class="heading mt-3 h2" id="headerName">PROJECT</header>
+    <header class="heading mt-3 h2" id="headerName">{% translate "PROJECT"%}</header>
     <div class="link pb-3">
         <div>
-            <a href="{% url 'home' %}" class="text-black-50">HOME</a> <span class=ti-angle-right></span>
-            <a id="headerLink" href="{% url 'project_page' %}">PROJECT</a>
+            <a href="{% url 'home' %}" class="text-black-50">{% translate "HOME" %}</a> <span class=ti-angle-right></span>
+            <a id="headerLink" href="{% url 'project_page' %}">{% translate "PROJECT" %}</a>
             <span class=ti-angle-right></span>
-            <a class="text-black-50" href="{% url 'dev_page' %}">DEV</a>
+            <a class="text-black-50" href="{% url 'dev_page' %}">{% translate "DEV" %}</a>
         </div>
     </div>
 </div>

@@ -10,7 +10,13 @@ from django.http import JsonResponse
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.core.cache import cache
+from django.conf import settings
+from django.utils.translation import gettext as _
 
+
+def remove_cache():
+    cache.set("project","")
 
 class UpdateProject(View):
     def get(self, request, project_id):
@@ -27,7 +33,7 @@ class UpdateProject(View):
         add_project_form = UpdateProjectForm(initial={'des': des, 'name': name,
                                                       'start_date': start_date, 'end_date': end_date, 'cost': cost,
                                                       })
-        return render(request, 'project/updateproject.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'devs': dev, 'title_form': "Project Information"})
+        return render(request, 'project/updateproject.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'devs': dev, 'title_form': _("Project Information")})
 
     def patch(self, request, project_id):
         request = QueryDict(request.body)
@@ -72,6 +78,7 @@ class UpdateProject(View):
                 # dev_select.save()
                 response = JsonResponse(
                     {'statusCode': '200', 'message': "Successfully"})
+                remove_cache()
             except Exception as err:
                 response = JsonResponse(
                     {'statusCode': '500', 'message': "ERROR"},)
@@ -84,6 +91,7 @@ class UpdateProject(View):
             response = JsonResponse(
                 {'statusCode': '200', 'messages': "Successfully"}
             )
+            remove_cache()
         except:
             response = JsonResponse({
                 'statusCode': '500'

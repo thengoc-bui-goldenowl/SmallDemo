@@ -1,34 +1,49 @@
+{% load i18n %}
 <header class="head-table">
-    <div class="select col-3 selectShow">
-        <select id="selectShow" onchange="selectShow()" class="form-select select-custom">
-        <option value="0">Project</option>
-        <option value="1">Dev</option>
-      </select>
-    </div>
     <h3 class="project-name" id="projectName"></h3>
     <div class="sort d-flex flex-row">
-        <div class="title">SORT:</div>
         <div class="select">
-            <select id="count" onchange="select_count()" class="form-select select-custom">
+            <select id="count" class="form-select select-custom">
+            <option selected><span class="title">{% translate "Display"%}: </span>{{data|length}}</option>
             <option value="3">3</option>
             <option value="5">5</option>
             <option value="7">7</option>
           </select>
         </div>
         <div class="form-outline search">
-            <input type="text" class="form-control" id="search-project" placeholder="Search for names.." title="Type in a name">
+            <input type="text" class="form-control" id="search-project" placeholder="{% translate "Search for names.." %}" title="Type in a name" style="height: 35px">
         </div>
         <div class="form-outline search">
-            <input type="text" class="form-control datepicker" data-date-format="dd-mm-yyyy" id="startDate" placeholder="Start Date">
+            <input type="text" class="form-control datepicker" data-date-format="dd-mm-yyyy" id="startDate" placeholder="{% translate "Start Date.."%}">
         </div>
         <div class="form-outline search">
-            <input type="text" class="form-control datepicker" data-date-format="dd-mm-yyyy" id="endDate" placeholder="End Date..">
+            <input type="text" class="form-control datepicker" data-date-format="dd-mm-yyyy" id="endDate" placeholder="{% translate "End Date.."%}">
         </div>
         <div class="form-outline search">
-            <button type="button" class="btn btn-primary" id="btnSearchDate" style="margin-left:20px">Search</button>
+            <button type="button" class="btn btn-primary" id="btnSearchDate" style="margin-left:-19.5px; max-height: 35px;">
+                <span class="ti-search"></span></button>
         </div>
-        <div class="form-outline search">
-            <button type="button" class="btn btn-danger" id="btnClearSearchDate">Clear</button>
+        <div class="col currency">
+            <div class="dropdown ">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" style="max-height: 35px;border-radius: 50px">
+                    <span class="ti-money"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="openBtn">
+                            <button class="openButton dropdown-item vnd" >VND</button>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="openBtn">
+                            <button class="openButton dropdown-item usd" >USD</button>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
         </div>
 
     </div>

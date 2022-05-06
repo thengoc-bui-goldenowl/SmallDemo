@@ -10,6 +10,8 @@ from django.http import JsonResponse
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.utils.translation import gettext as _
+
 
 
 class DetailDev(View):
@@ -30,7 +32,7 @@ class DetailDev(View):
                                               })
         for field in add_dev_form.fields:
             add_dev_form.fields[field].disabled = True
-        return render(request, 'detail.html', {'f': add_dev_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'projects': project, 'title_form': "Dev Information"})
+        return render(request, 'detail.html', {'f': add_dev_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'projects': project, 'title_form': _("Dev Information")})
 
 
 class DetailProject(View):
@@ -53,4 +55,4 @@ class DetailProject(View):
                                                       })
         for field in add_project_form.fields:
             add_project_form.fields[field].disabled = True
-        return render(request, 'detail.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'projects': dev, 'title_form': "Project Information"})
+        return render(request, 'detail.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'projects': dev, 'title_form': _("Project Information")})

@@ -1,15 +1,16 @@
 
-    <div class="formdetail" id="detailForm">
-        <form class="formContainer" id="{{form_id}}" >
-            
-            {% csrf_token %}
-            <h2 style="color: blue">{{title_form}}</h2>
-            {{f}}
-            <div id="project-link" class="tag-link">
-                {% for project in projects %}
-                <a class="projectsId" value="{{project.0}}">{{project.1}}</a>
-                {% endfor %}
-            </div>
-            <button type="button" class="btn canceldetail">Close</button>
-        </form>
-    </div>
+{% load i18n %}
+<div class="formdetail" id="detailForm">
+    <form class="formContainer" id="{{form_id}}" >
+        
+        {% csrf_token %}
+        <h2 class="title-form">{{title_form}}</h2>
+        {{f}}
+        <div id="project-link" class="tag-link">
+            {% for project in projects %}
+            <a class="projectsId" value="{{project.0}}">{{project.1}}</a>
+            {% endfor %}
+        </div>
+        <button type="button" class="btn canceldetail cancel">{% translate "Close"%}</button>
+    </form>
+</div>

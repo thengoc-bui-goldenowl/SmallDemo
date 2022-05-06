@@ -1,6 +1,6 @@
 from django import forms
 from home.models import Dev, Project
-
+from django.utils.translation import gettext_lazy as _
 
 class UpdateProjectForm(forms.ModelForm):
     dev = forms.CharField(required=False, widget=forms.TextInput(
@@ -17,11 +17,12 @@ class UpdateProjectForm(forms.ModelForm):
         model = Project
         fields = ('name', 'des', 'start_date', 'end_date', 'cost', 'dev')
         labels = {
-            'name': "Name",
-            'des': "Description",
-            'start_date': "Start Date",
-            'end_date': "End Date",
-            'dev': "Dev"
+            'name': _("Name"),
+            'des': _("Description"),
+            'start_date': _("Start Date"),
+            'end_date': _("End Date"),
+            'dev': _("Dev"),
+            'cost': _('Cost'),
 
         }
         widgets = {
@@ -41,8 +42,9 @@ class UpdateDevForm(forms.ModelForm):
         model = Dev
         fields = ('first_name', 'last_name', 'language', 'active', 'project')
         labels = {
-            "first_name": "First Name",
-            "last_name": "Last Name",
-            "active": "State",
-            "project": "project"
+            "first_name": _("First Name"),
+            "last_name": _("Last Name"),
+            "active": _("State"),
+            "project": _("Project"),
+            'language': _('Language'),
         }
