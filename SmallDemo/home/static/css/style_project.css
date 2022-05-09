@@ -230,9 +230,12 @@ input:checked+.slider:before {
     justify-content: center;
 }
 
+.language:hover ul li {
+    display: inline-block;
+}
+
 .language ul li a {
     background-color: #F1FFF7;
-    margin-left: 30px;
     color: #44B78B;
     font-weight: 700;
 }

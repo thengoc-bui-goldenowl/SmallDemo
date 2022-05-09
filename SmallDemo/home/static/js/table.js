@@ -1,5 +1,10 @@
 //Search project name
 
+// $('#search-name-project').submit(function(e) {
+//     e.preventDefault();
+//     window.location.replace(`/search/project/name/${$('#search-project').val()}/`)
+// });
+
 $('#search-project').autocomplete({
     source: function(request, response) {
         $.ajax({
@@ -46,15 +51,9 @@ $('#search-project').autocomplete({
 
 
 // Search Date
-$('#btnSearchDate').click(function() {
-    if ($('#startDate').val() != "" && $('#endDate').val() != "") {
-        var dataSearchDate = [];
-        var startDate = $('#startDate').val();
-        var endDate = $('#endDate').val();
-        var url = `/${langCode}/search/project/date/${String(startDate)}/${String(endDate)}`
-        window.location.replace(url)
-
-    } else {
+$('#btnSearchDate').click(function(e) {
+    if ($('#startDate').val() == "" || $('#endDate').val() == "") {
+        e.preventDefault();
         alert(gettext("Start Date and End Date is not none!"))
     }
 
@@ -91,14 +90,14 @@ $(".vnd, .usd").click(function(e) {
     });
 })
 
-$('.language-change, .other').hover(function() {
-        // over
-        $('.other').show()
-    },
-    function() {
-        $('.language ul .other').hide()
-    }
-);
+// $('.language-change, .other').hover(function() {
+//         // over
+//         $('.other').show()
+//     },
+//     function() {
+//         $('.language ul .other').hide()
+//     }
+// );
 
 
 $('#count').change(function() {

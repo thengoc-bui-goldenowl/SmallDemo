@@ -13,6 +13,7 @@ from django.db.models import Q
 from django.core.cache import cache
 from django.conf import settings
 from django.utils.translation import gettext as _
+import json
 
 
 def remove_cache():
@@ -36,44 +37,47 @@ class UpdateProject(View):
         return render(request, 'project/updateproject.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'devs': dev, 'title_form': _("Project Information")})
 
     def patch(self, request, project_id):
-        request = QueryDict(request.body)
-        form = UpdateProjectForm(request)
-        if form.is_valid:
+        data=json.loads(request.body)
+        form = UpdateProjectForm(data)
+        if form.is_valid:   
             try:
-                des = request.get('des')
-                name = request.get('name')
-                start_date = request.get('start_date')
-                end_date = request.get('end_date')
-                cost = request.get('cost')
-                devs = request.get('devs')
-
+                des = data['des']
+                name = data['name']
+                start_date = data['start_date']
+                end_date = data['end_date']
+                cost = data['cost']
+                devs = data['devs']
                 project = Project.objects.get(id=project_id)
-                devs_raw = project.dev.values('id')
-                devs_raw = [i['id'] for i in devs_raw]
-                devs = devs.split(',')[1:]
-                devs = [int(i) for i in devs]
-                devs_add = list(set(devs)-set(devs_raw))
-                devs_remove = list(set(devs_raw)-set(devs))
-                for dev_id in devs_add:
-                    dev_select = Dev.objects.get(id=dev_id)
-                    project.dev.add(dev_select)
-                    project.save()
-                    project_dev = ProjectDev(
-                        dev=dev_select, project=project, status=True)
-                    project_dev.save()
-                for dev_id in devs_remove:
-                    dev_select = Dev.objects.get(id=dev_id)
-                    project.dev.remove(dev_select)
-                    project_dev = ProjectDev(
-                        dev=dev_select, project=project, status=False)
-                    project_dev.save()
-
+                try:
+                    devs_raw = project.dev.values('id')
+                    devs_raw = [i['id'] for i in devs_raw]
+                    devs = devs.split(',')[1:]
+                    devs = [int(i) for i in devs]
+                    devs_add = list(set(devs)-set(devs_raw))
+                    devs_remove = list(set(devs_raw)-set(devs))
+                    print("devs",devs)
+                    for dev_id in devs_add:
+                        dev_select = Dev.objects.get(id=dev_id)
+                        project.dev.add(dev_select)
+                        project.save()
+                        project_dev = ProjectDev(
+                            dev=dev_select, project=project, status=True)
+                        project_dev.save()
+                    for dev_id in devs_remove:
+                        dev_select = Dev.objects.get(id=dev_id)
+                        project.dev.remove(dev_select)
+                        project_dev = ProjectDev(
+                            dev=dev_select, project=project, status=False)
+                        project_dev.save()
+                except:
+                    pass
                 project.name = name
                 project.des = des
                 project.start_date = start_date
                 project.end_date = end_date
                 project.cost = cost
                 project.save()
+                
                 #dev_select.active = True
                 # dev_select.save()
                 response = JsonResponse(

@@ -10,3 +10,4 @@ python-decouple
 django-celery-results
 django-redis
 python-gettext
+coverage

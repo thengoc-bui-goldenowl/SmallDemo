@@ -10,14 +10,14 @@ from django.http import JsonResponse
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
-
+from django.utils.translation import gettext as _
 
 class SearchDateProject(View):
 
-    def get(self, request, start_date, end_date):
+    def get(self, request):
         lang = request.COOKIES.get('lang') == 'vi'
-        #start_date = request.GET.get('startDate')
-        #end_date = request.GET.get('endDate')
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
         sd_date = datetime.strptime(start_date, '%Y-%m-%d')
         ed_date = datetime.strptime(end_date, '%Y-%m-%d')
         if sd_date > ed_date:
@@ -36,8 +36,32 @@ class SearchDateProject(View):
 
 class SearchNameDev(View):
     def get(self, request):
-        qry = request.GET.get('term')
+        qry = request.GET.get('qry')
+        currency = request.COOKIES.get('currency') == 'vnd'
         data = Dev.objects.filter(
             Q(first_name__icontains=qry) | Q(last_name__icontains=qry))
-        json = [str(i.id)+' - '+str(i) for i in data]
-        return JsonResponse(json, safe=False)
+        paginate_by = request.COOKIES.get('count', 3)
+        print("count", paginate_by)
+        p = Paginator(data, paginate_by)
+        page = request.GET.get('page', 1)
+        page = p.page(page)
+        data = page.object_list
+        context = {'data': page, 'title_page': _(
+            "List Dev"), 'currency': currency, 'paginateby': paginate_by}
+        return render(request, 'dev/devpage.html', context)
+
+
+class SearchNameProject(View):
+    def get(self, request):
+        qry = request.GET.get('qry')
+        print(qry)
+        currency = request.COOKIES.get('currency') == 'vnd'
+        data  = Project.objects.filter(name__icontains=qry)
+        paginate_by = request.COOKIES.get('count', 3)
+        p = Paginator(data, paginate_by)
+        page = request.GET.get('page', 1)
+        page = p.page(page)
+        data = page.object_list
+        context = {'data': page, 'title_page': _(
+            "List Project"), 'currency': currency, 'paginateby': paginate_by}
+        return render(request, 'project/projectpage.html', context)

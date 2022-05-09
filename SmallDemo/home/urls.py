@@ -17,7 +17,6 @@ from home.views import *
 from django.urls import path, include
 from .models import *
 from .serializers import *
-from .celerytest import celery
 # from rest_framework.routers import DefaultRouter
 # router = DefaultRouter ()
 # router.register('test', views.Test)
@@ -25,7 +24,6 @@ from .celerytest import celery
 urlpatterns = [
      # path('test/', include(router.urls)),
     path('', Home.as_view(), name='home'),
-    path('test/', celery ,name="test"),
     path('form/create/project/',
          CreateProject.as_view(), name='create_project'),
     path('form/create/dev/', CreateDev.as_view(), name='create_dev'),
@@ -33,19 +31,23 @@ urlpatterns = [
      path('project/<int:project_id>/', UpdateProject.as_view(), name="project_update"),
     path('dev/', DevPage.as_view(), name='dev_page'),
     path('dev/<int:dev_id>/', UpdateDev.as_view(), name= "dev_update"),
-    path('form/detail/dev/', DetailDev.as_view(), name='detail_dev'),
-    path('form/detail/project/', DetailProject.as_view(), name='detail_project'),
+    path('detail/dev/<int:dev_id>/', DetailDev.as_view(), name='detail_dev'),
+    path('detail/project/<int:project_id>/', DetailProject.as_view(), name='detail_project'),
     path('form/devautocomplete/', DevAutocomplete.as_view(),
          name='dev_autocomplete'),
-     path('form/projectautocomplete/', ProjectAutocomplete.as_view(),
+    path('form/projectautocomplete/', ProjectAutocomplete.as_view(),
          name='project_autocomplete'),
-     path('search/project/name/', ProjectAutocomplete.as_view(),
+    path('search/project/name/', ProjectAutocomplete.as_view(),
+         name='project_search_name_autocomplete'),
+    path('project/search/name/', SearchNameProject.as_view(),
          name='project_search_name'),
-     path('search/project/date/<str:start_date>/<str:end_date>/', SearchDateProject.as_view(),
+    path('project/search/date/', SearchDateProject.as_view(),
          name='project_search_date'),
-     path('search/dev/name/', SearchNameDev.as_view(),
-         name='dev_search_name'),
-     path('language/<str:lang>/', Language.as_view(), name="language"),
-     path('paginateby/<int:count>/', CountDisplay.as_view(), name="count"),
+    path('search/dev/name/', SearchNameDevAutocomplete.as_view(),
+         name='dev_search_name_autocomplete'),
+    path('dev/search/name/', SearchNameDev.as_view(),
+         name='dev_search_name'),   
+    path('language/<str:lang>/', Language.as_view(), name="language"),
+    path('paginateby/<int:count>/', CountDisplay.as_view(), name="count_display"),
 
 ]

@@ -73,28 +73,30 @@ function createDevSubmit(url, dev_id, messages = 'New Dev Added', method = "POST
         var first_name = $('#id_first_name').val();
         var last_name = $('#id_last_name').val();
         var active = $('#id_active').prop('checked');
+        var language = $('#id_language').val();
         try {
             var project = $('#id_project').val();
         } catch (error) {
 
         }
+        const data = {
+            projects: projects,
+            dev_id: dev_id,
+            first_name: first_name,
+            last_name: last_name,
+            active: active,
+            project: project,
+            language: language,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        }
 
-        var language = $('#id_language').val();
         console.log(active)
         $.ajax({
             url: url,
             type: method,
-            data: {
-                projects: projects,
-                dev_id: dev_id,
-                first_name: first_name,
-                last_name: last_name,
-                active: active,
-                project: project,
-                language: language,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            },
-
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
             cache: false,
             success: function(dataResult) {
                 if (dataResult.statusCode == 200) {
@@ -140,20 +142,24 @@ function createProjectSubmit(url, project_id, messages = 'New Project Added', me
         var cost = $('#id_cost').val();
         var dev = $('#id_dev').val();
 
+        const data = {
+            devs: devs,
+            project_id: project_id,
+            name: name,
+            des: des,
+            start_date: start_date,
+            end_date: end_date,
+            dev: dev,
+            cost: cost,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        }
+
         $.ajax({
             url: url,
             type: method,
-            data: {
-                devs: devs,
-                project_id: project_id,
-                name: name,
-                des: des,
-                start_date: start_date,
-                end_date: end_date,
-                dev: dev,
-                cost: cost,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            },
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
             cache: false,
             success: function(dataResult) {
                 if (dataResult.statusCode == 200) {
@@ -175,7 +181,8 @@ function createProjectSubmit(url, project_id, messages = 'New Project Added', me
                     }, 2000);
                 }
 
-            }
+            },
+            error
         });
 
 
@@ -336,12 +343,8 @@ function devDetail() {
         e.preventDefault();
         var dev_id = $(this).attr('value');
         $.ajax({
-            url: `/${langCode}/form/detail/dev/`,
+            url: `/${langCode}/detail/dev/${dev_id}/`,
             type: "GET",
-            data: {
-                dev_id: dev_id,
-
-            },
             success: function(result) {
                 $(".loginPopup").append(result);
                 autocompleteUpdate()

@@ -27,3 +27,12 @@ class ProjectAutocomplete(View):
         data = Project.objects.filter(name__icontains=qry)
         json = [str(i.id)+' - '+str(i) for i in data]
         return JsonResponse(json, safe=False)
+
+
+class SearchNameDevAutocomplete(View):
+    def get(self, request):
+        qry = request.GET.get('term')
+        data = Dev.objects.filter(
+            Q(first_name__icontains=qry) | Q(last_name__icontains=qry))
+        json = [str(i.id)+' - '+str(i) for i in data]
+        return JsonResponse(json, safe=False)
