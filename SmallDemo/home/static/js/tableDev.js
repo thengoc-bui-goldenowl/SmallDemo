@@ -25,8 +25,6 @@ $('#tabledev tr td:nth-child(3) a, #tabledev tr td button:nth-child(1)').click(f
 //load project detail
 function projectDetail() {
     $('#project-link a').click(function(e) {
-        //console.log($(this).text());
-        //alert($(this).DataTable().row(this).data())
         e.preventDefault();
         var project_id = $(this).attr('value');
         $.ajax({

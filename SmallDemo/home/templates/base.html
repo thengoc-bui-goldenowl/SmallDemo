@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    {% load i18n %}
+{% load i18n %} {% load func %}
+
 <head>
     {% load static %}
     <title>{{title_page}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style_project.css' %}">
     <link rel="stylesheet" href="{% static 'font/themify-icons.css' %}">
@@ -20,39 +20,37 @@
 
     <div class="modal fade" id="modelRemove" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">{% translate "Are you sure ?"%}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{% translate "Are you sure ?"%}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% translate "Do you really want to delete? This process cannot be undone."%}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{% translate "Close"%}</button>
+                    <button type="button" class="btn btn-danger" id="remove-btn">{% translate "Remove"%}</button>
+                </div>
             </div>
-            <div class="modal-body">
-                {% translate "Do you really want to delete? This process cannot be undone."%}
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{% translate "Close"%}</button>
-              <button type="button" class="btn btn-danger" id="remove-btn">{% translate "Remove"%}</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-    
+
     <div id="createForm">
-    {% block popup %}
-    {% endblock %}
-</div>
+        {% block popup %} {% endblock %}
+    </div>
     <div class="alert alert-success alert-dismissible col-12 center" id="success" style="display:none;text-align: center">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      </div>
-      <div class="alert alert-danger alert-dismissible" id="error" style="display:none;text-align: center">
+    </div>
+    <div class="alert alert-danger alert-dismissible" id="error" style="display:none;text-align: center">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-      </div>
+    </div>
     <!--Header-->
     <div class="container-fluid main">
-        
+
         <header class="header row">
-            {% block link %}
-            {% endblock %}
+            {% block link %} {% endblock %}
             <div class="col ">
                 <div class="dropdown create">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
@@ -78,53 +76,44 @@
         </header>
         <main class="content row">
             <!--Head-Table-->
-            {% block headtable %}
-            {% endblock %}
+            {% block headtable %} {% endblock %}
             <!--table-->
             <div class="totalTable row" id="totalTable">
-                {% block table %}
-                {% endblock %}
+                {% block table %} {% endblock %}
             </div>
 
         </main>
-        {% block clock %}
-    {% endblock %}
+        {% block clock %} {% endblock %}
         <div class="language">
             <ul>
-                
-                {% comment %} <li class="other"> {% endcomment %}
-                {% comment %} <a href="/language/en/" >en</a>
+
+                {% comment %}
+                <li class="other"> {% endcomment %} {% comment %} <a href="/language/en/">en</a>
                 </li>
                 <li class="other">
                     <a href="/language/vi/">vi</a>
-                </li> {% endcomment %}
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_available_languages as LANGUAGES %}
-                {% get_language_info_list for LANGUAGES as languages %}
-                {% for lang in languages %}
+                </li> {% endcomment %} {% get_current_language as LANGUAGE_CODE %} {% get_available_languages as LANGUAGES %} {% get_language_info_list for LANGUAGES as languages %} {% for lang in languages %}
                 <li class="other">
-                <a href="/{{ lang.code }}/{{request.get_full_path|slice:"4:"}}">
+                    <a href="/{{ lang.code }}{{request.get_full_path|remove_lang_url}}">
                     {{ lang.code }}
                 </a>
                 </li>
                 {% endfor %}
                 <li title="Click on the links on the left to switch to another language." class="language-change">
-                    <span>{% translate "Language"%}: </span>
-                    {% comment %} <strong>{% if lang %}
+                    <span>{% translate "Language"%}: </span> {% comment %} <strong>{% if lang %}
                         vi
                         {% else %}
                         en
                         {% endif %}
                     </strong> {% endcomment %}
                     <strong id="langCode">{{ LANGUAGE_CODE }}</strong>
-                    </li>
+                </li>
             </ul>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    {% block script %}
-    {% endblock %}
+    {% block script %} {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
     <script src="{% url 'javascript-catalog' %}"></script>

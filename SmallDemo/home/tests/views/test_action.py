@@ -37,12 +37,15 @@ class TestCreates(TransactionTestCase):
         self.assertContains(response, "f")
 
     def test_dev_create_post(self):
-        response = self.client.post(reverse('create_dev'), {
-            'active': True,
+        data={
+            'active': 'on',
             'first_name': 'Squid',
             'last_name': 'Doe',
             'language': 'C++',
-        })
+            'project': str(self.project_id)
+        }
+        data=json.dumps(data)
+        response = self.client.post(reverse('create_dev'), data, content_type='application/json' )
         self.assertEqual(Dev.objects.count(), 2)
         self.assertEquals(self.dev1.first_name, "John")
         self.assertEquals(response.status_code, 200)
@@ -54,13 +57,16 @@ class TestCreates(TransactionTestCase):
         self.assertContains(response, "f")
 
     def test_project_create_post(self):
-        response = self.client.post(reverse('create_project'), {
+        data={
             'name': "NameTest",
             'des': 'Description',
             'start_date': '2001-02-02',
             'end_date': '2002-02-02',
-            'cost': 2500
-        })
+            'cost': '2500',
+            'dev': str(self.dev_id)
+        }
+        data=json.dumps(data)
+        response = self.client.post(reverse('create_project'), data, content_type='application/json')
         self.assertEqual(Project.objects.count(), 2)
         self.assertEquals(self.project1.name, "project1")
         self.assertEquals(response.status_code, 200)
@@ -111,11 +117,11 @@ class TestCreates(TransactionTestCase):
             cost=120
         )
         self.project1.dev.add(self.dev1)
-        data={'active':'True',
+        data={'active':'on',
         'first_name':'Squid',
         'last_name':'Doe',
         'language':'C++',
-        'projects':','+str(new_project.id)}
+        'projects':str(new_project.id)}
         data=json.dumps(data)
         response = self.client.patch(reverse('dev_update', args=(
             self.dev_id,)), data, format="json")
@@ -153,7 +159,7 @@ class TestCreates(TransactionTestCase):
         "start_date":"2000-02-02",
         "end_date":"2001-02-02",
         "cost":"1250",
-        "devs":","+str(new_dev1.id)}
+        "devs":str(new_dev1.id)}
         data=json.dumps(data)
         response = self.client.patch(
             reverse('project_update', args=(self.project_id,)), data, format="json")

@@ -22,6 +22,9 @@ function ajaxProjectForm() {
             });
 
             createProjectSubmit(`/${langCode}/form/create/project/`);
+        },
+        error: function() {
+            error()
         }
     });
 }
@@ -48,6 +51,9 @@ function ajaxDevForm() {
                 document.getElementById('id_project').disabled = !this.checked;
             })
             createDevSubmit(`/${langCode}/form/create/dev/`)
+        },
+        error: function() {
+            error()
         }
     });
 }
@@ -67,30 +73,29 @@ function createFormButton(selector = "popup") {
 function createDevSubmit(url, dev_id, messages = 'New Dev Added', method = "POST") {
     $('#createDevForm').submit(function(e) {
         e.preventDefault();
-        var projects = devsUpdate("project")
         if (!$(this).valid()) return false;
         $(".createDevSubmit").attr("disabled", "disabled");
-        var first_name = $('#id_first_name').val();
-        var last_name = $('#id_last_name').val();
-        var active = $('#id_active').prop('checked');
-        var language = $('#id_language').val();
+        var formdata = $("#createDevForm").serializeArray();
+        dataObj = {};
+        $(formdata).each(function(i, field) {
+            dataObj[field.name] = field.value;
+        });
+        var projects = devsUpdate("project")
         try {
-            var project = $('#id_project').val();
+            var active = formdata[4].value;
         } catch (error) {
-
+            dataObj['active'] = false;
+            dataObj['project'] = false;
         }
         const data = {
             projects: projects,
             dev_id: dev_id,
-            first_name: first_name,
-            last_name: last_name,
-            active: active,
-            project: project,
-            language: language,
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            first_name: dataObj['first_name'],
+            last_name: dataObj['last_name'],
+            active: dataObj['active'],
+            project: dataObj['project'],
+            language: dataObj['language'],
         }
-
-        console.log(active)
         $.ajax({
             url: url,
             type: method,
@@ -111,13 +116,12 @@ function createDevSubmit(url, dev_id, messages = 'New Dev Added', method = "POST
                     }, 2000);
 
                 } else {
-                    $("#error").show();
-                    $('#error').html('ERROR!');
-                    setTimeout(function() {
-                        $("#error").hide();
-                    }, 2000);
+                    error()
                 }
 
+            },
+            error: function() {
+                error()
             }
         });
 
@@ -126,7 +130,13 @@ function createDevSubmit(url, dev_id, messages = 'New Dev Added', method = "POST
 
 }
 
-
+function error() {
+    $("#error").show();
+    $('#error').html('ERROR!');
+    setTimeout(function() {
+        $("#error").hide();
+    }, 2000);
+}
 //Submit Form Project
 
 function createProjectSubmit(url, project_id, messages = 'New Project Added', method = "POST") {
@@ -135,22 +145,20 @@ function createProjectSubmit(url, project_id, messages = 'New Project Added', me
         var devs = devsUpdate()
         if (!$(this).valid()) return false;
         $(".createProjectSubmit").attr("disabled", "disabled");
-        var name = $('#id_name').val();
-        var des = $('#id_des').val();
-        var start_date = $('#id_start_date').val();
-        var end_date = $('#id_end_date').val();
-        var cost = $('#id_cost').val();
-        var dev = $('#id_dev').val();
-
+        var formdata = $("#createProjectForm").serializeArray();
+        dataObj = {};
+        $(formdata).each(function(i, field) {
+            dataObj[field.name] = field.value;
+        });
         const data = {
             devs: devs,
             project_id: project_id,
-            name: name,
-            des: des,
-            start_date: start_date,
-            end_date: end_date,
-            dev: dev,
-            cost: cost,
+            name: dataObj['name'],
+            des: dataObj['des'],
+            start_date: dataObj['start_date'],
+            end_date: dataObj['end_date'],
+            dev: dataObj['dev'],
+            cost: dataObj['cost'],
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         }
 
@@ -182,7 +190,9 @@ function createProjectSubmit(url, project_id, messages = 'New Project Added', me
                 }
 
             },
-            error
+            error: function() {
+                error()
+            }
         });
 
 
@@ -192,119 +202,7 @@ function createProjectSubmit(url, project_id, messages = 'New Project Added', me
 }
 
 
-// Valid name function
-function validFormDev() {
-    $(document).ready(function() {
-        $.validator.addMethod("validName", function(value, element) {
-            return this.optional(element) || /[^ёЁа-яА-Яa-zA-Zà-üÀ-Ü0-9\.\-\+_]/u.test(value);
-            // /^[a-zA-Z ]{3,16}$/.test(value);
-        }, 'Please enter a valid name.');
-        $("#createDevForm").validate({
-            errorClass: 'form-dev-error',
-            rules: {
-                "first_name": {
-                    validName: true
-                },
-                "last_name": {
-                    validName: true
-                },
-                "language": {
-                    required: true
-                },
-            },
-            messages: {
-                "first_name": {
-                    validName: gettext('Please enter a valid name.'),
-                    required: gettext("This field is required."),
-                },
-                "last_name": {
-                    validName: gettext('Please enter a valid name.'),
-                    required: gettext("This field is required."),
-                },
-                "language": {
-                    required: gettext("This field is required.")
-                },
-            }
-        });
-    })
-}
 
-// Valid project Form
-function validFormProject() {
-    $(document).ready(function() {
-        $.validator.addMethod("isdateafter", function(value, element, params) {
-            var startdatevalue = $('#id_start_date').val();
-            if (!value || !startdatevalue)
-                return true;
-
-            return this.optional(element) || Date.parse(startdatevalue) <= Date.parse(value);
-        });
-        $.validator.addMethod('validCost', function(value) {
-            return Number(value) > 0;
-        }, 'Enter a positive number.');
-        $("#createProjectForm").validate({
-
-            errorClass: 'form-dev-error',
-            rules: {
-                "name": {
-                    maxlength: 50,
-                    minlength: 3
-                },
-                "des": {
-                    maxlength: 200,
-                    minlength: 5
-                },
-                "start_date": {
-                    date: true,
-                    //dateFormat: true,
-                },
-                "end_date": {
-                    date: true,
-                    isdateafter: true
-                },
-                "cost": {
-                    validCost: true,
-
-                },
-                "dev": {
-                    required: false,
-
-                }
-            },
-            messages: {
-                "name": {
-                    maxlength: gettext("Must be 3 to 20 characters"),
-                    required: gettext("This field is required."),
-                    minlength: gettext("Must be 3 to 20 characters")
-                },
-                "des": {
-                    maxlength: gettext("Must be 5 to 200 characters"),
-                    required: gettext("This field is required."),
-                    minlength: gettext("Must be 5 to 200 characters")
-                },
-                "start_date": {
-                    date: gettext("Enter a valid Date"),
-                    required: gettext("This field is required."),
-
-                },
-                "end_date": {
-                    date: gettext("Enter a valid Date"),
-                    required: gettext("This field is required."),
-                    isdateafter: gettext("Enter a valid End Date")
-
-                },
-                "cost": {
-                    validCost: gettext("Enter a positive value"),
-                    required: gettext("This field is required."),
-
-                },
-                "dev": {
-                    required: gettext("Select a project"),
-                },
-            }
-        });
-    })
-}
 
 //Update project when click name or update
 
@@ -330,6 +228,9 @@ $('#tableproject tr td:nth-child(3) a, #tableproject tr td button:nth-child(1)')
                 dateFormat: 'yy-mm-dd'
             });
             createProjectSubmit(`/project/${project_id}/`, project_id, 'Updated', method = "PATCH");
+        },
+        error: function() {
+            error()
         }
     });
 });
@@ -358,6 +259,9 @@ function devDetail() {
 
                 //$('#detailForm input').prop('disabled', true);
 
+            },
+            error: function() {
+                error()
             }
         });
 
@@ -402,6 +306,9 @@ $('#tableproject tr td button:nth-child(2)').click(function(e) {
                         }, 2000);
                     }
 
+                },
+                error: function() {
+                    error()
                 }
             });
         })
@@ -449,6 +356,9 @@ function autocompleteUpdate(selector = "dev") {
                 type: "GET",
                 success: function(data) {
                     response(data);
+                },
+                error: function() {
+                    error()
                 }
             });
         },

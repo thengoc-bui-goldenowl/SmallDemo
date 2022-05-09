@@ -14,6 +14,7 @@ from django.db.models import Q
 from django.core.cache import cache
 from django.conf import settings
 from django.utils.translation import gettext as _
+import json
 
 
 class CreateDev(View):
@@ -23,16 +24,17 @@ class CreateDev(View):
         return render(request, 'popup.html', {'f': add_dev_form, 'index': 'create/dev', 'btn_class': 'creatDevSubmit', 'form_id': 'createDevForm', 'title_form': _("New Dev")})
 
     def post(self, request):
+        data=json.loads(request.body)
         try:
-            active = request.POST.get('active') == 'true'
-            first_name = request.POST.get('first_name')
-            last_name = request.POST.get('last_name')
-            language = request.POST.get('language')
+            active = str(data['active']) == 'on'
+            first_name = data['first_name']
+            last_name = data['last_name']
+            language = data['language']
             new_dev = Dev(first_name=first_name, last_name=last_name,
                           language=language, active=active)
             new_dev.save()
             if active:
-                project_id = request.POST.get('project')
+                project_id = data['project']
                 project = Project.objects.get(id=project_id)
                 project.dev.add(new_dev)
                 project.save()
@@ -54,22 +56,22 @@ class CreateProject(View):
         return render(request, 'popup.html', {'f': add_project_form, 'index': 'create/project', 'btn_class': 'creatProjectSubmit', 'form_id': 'createProjectForm', 'title_form': _("New Project")})
 
     def post(self, request):
-        form = ProjectForm(request.POST)
+        data=json.loads(request.body)
+        form = ProjectForm(data)
         if form.is_valid:
             try:
-                request = request.POST
-                des = request.get('des')
-                name = request.get('name')
-                start_date = request.get('start_date')
-                end_date = request.get('end_date')
-                cost = request.get('cost')
-                dev_id = request.get('dev')
+                des = data['des']
+                name = data['name']
+                start_date = data['start_date']
+                end_date = data['end_date']
+                cost = data['cost']      
                 #dev_select.active = True
                 # dev_select.save()
                 new_project = Project(
                     des=des, name=name, start_date=start_date, end_date=end_date, cost=cost)
                 new_project.save()
                 try:
+                    dev_id = data['dev']
                     dev_select = Dev.objects.get(id=dev_id)
                     new_project.dev.add(dev_select)
                     new_project.save()

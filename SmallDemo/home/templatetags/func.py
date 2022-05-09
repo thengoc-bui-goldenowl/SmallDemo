@@ -29,3 +29,8 @@ def get_price():
 def removelast(value):
     value = str(value)
     return value[:-1]
+
+@register.filter
+def remove_lang_url(value):
+    value = str(value)
+    return value[3:]
