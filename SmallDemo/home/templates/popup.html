@@ -5,7 +5,9 @@
         <form class="formContainer" id="{{form_id}}" >
             {% csrf_token %}
             <h2 class="title-form">{{title_form}}</h2>
+            <div>
             {{f}}
+            </div>
             <button type="submit" class="btn {{btn_class}}" id ="{{btn_class}}">{% translate "Confirm"%}</button>
             <button type="button" class="btn cancel">{% translate "Close"%}</button>
         </form>

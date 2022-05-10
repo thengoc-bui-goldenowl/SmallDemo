@@ -1,6 +1,4 @@
-
-{% load func %}
-{% load i18n %}
+ {% load func %} {% load i18n %}
 <div class="table-project table-responsive">
     <table class="table table-bordered table-hover text-center " id="tableproject">
         <thead>
@@ -21,31 +19,24 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{project.id}}</td>
-                <td><a value="{{project.id}} "href="{{project.id}}">{{project.name}}</a></td>
+                <td><a value="{{project.id}} " href="{{project.id}}">{{project.name}}</a></td>
                 <td>{{project.des}}</td>
                 <td>{{project.start_date|date:"Y-m-d"}}</td>
                 <td>{{project.end_date|date:"Y-m-d"}}</td>
-               <!-- <td>
+                <!-- <td>
                    
                     {% for dev in project.6 %}
                     <a value="{{dev.0}}" href="{{dev.0}}">{{dev.1}} {{dev.2}} </a>
                     {% endfor %}
                 </td>-->
                 <td>
-                    {% if currency %}
-                    {{ project.cost|mul}} VND
-                    {% else %}
-                    {{project.cost}} USD
-                    {% endif%}
+                    {% if currency %} {{ project.cost|mul}} VND {% else %} {{project.cost}} USD {% endif%}
                 </td>
                 <td>
                     <div class="btn-group-sm">
                         <button type="button" class="btn btn-primary btn-func" id="projectUpdate{{project.0}}"><span class='ti-pencil-alt'></button>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modelRemove"><span class='ti-trash'></span></button>
-
-                        
                     </div>
-                    
                 </td>
             </tr>
             {% endfor %}
@@ -54,29 +45,16 @@
     <footer class="row">
         <div class="col-3">
             <ul id="pagination0" class="pagination">
-
                 <li class="page-item0">
                     {% if data.has_previous %}
-                    <a class="page-link btn-pre" href="?page={{ data.previous_page_number }}">{% translate "Previous"%}</a>
-                    {% endif %}</li>
-                        {% comment %} <li class="page-item active"><a class="page-link" href="#">{{data.number}}</a></li> {% endcomment %}
-                        <li class="page-item active"><a class="page-link" href="#">{{data.number}} of {{data.paginator.num_pages}}</a></li>
-    
-
-                
-                <!-- 
-                    <nav id="page-number0" class="page-number page-number0">
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </nav>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                    <a class="page-link btn-pre" href="?page={{ data.previous_page_number }}{% if request.GET.qry %}&qry={{ request.GET.qry }}{% endif %}
+                    {% if request.GET.start_date %}&start_date={{ request.GET.start_date }}&end_date={{request.GET.end_date}}{% endif %}">{% translate "Previous"%}</a> {% endif %}</li>
+                <li class="page-item active"><a class="page-link" href="#">{{data.number}} of {{data.paginator.num_pages}}</a></li>
                 {% if data.has_next %}
-                <li class="page-item"><a class="page-link btn-next" href="?page={{ data.next_page_number }}">{% translate "Next"%}</a></li>
-                    {% endif%}
-           </ul>
+                <li class="page-item"><a class="page-link btn-next" href="?page={{ data.next_page_number }}{% if request.GET.qry %}&qry={{ request.GET.qry }}{% endif %}
+                    {% if request.GET.start_date %}&start_date={{ request.GET.start_date }}&end_date={{request.GET.end_date}}{% endif %}">{% translate "Next"%}</a></li>
+                {% endif%}
+            </ul>
         </div>
     </footer>
 </div>
