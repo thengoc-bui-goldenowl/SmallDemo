@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'SmallDemo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
+        'NAME': config('NAME0'),
+        'USER': config('USER0'),
+        'PASSWORD': config('PASSWORD0'),
+        'HOST': config('HOST0'),
         'PORT': '5432'
     }
 }
